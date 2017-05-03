@@ -6,21 +6,33 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/03 10:59:03 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/03 13:09:44 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = jdebladi.filler
 
-INCL = -I Libft/libft -I includes
+NAME_G = jdebladi.filler.g
+
+SRC_DIR = srcs/
+
+FILE = filler.c search.c display.c block.c 
+
+SRC = $(addprefix $(SRC_DIR), $(FILE)) srcs/main.c
+
+SRC_G = $(addprefix $(SRC_DIR), $(FILE)) srcs/main_g.c
+
+OBJ = $(SRC:.c=.o)
+
+OBJ_G = $(SRC_G:.c=.o)
+
+INCL = -I includes -I libft/libft
 
 LIBS = -Llibft -lftprintf
 
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
 
-SRC = srcs/filler.c srcs/search.c srcs/display.c srcs/main.c srcs/block.c
-
-OBJ = $(SRC:.c=.o)
+all: $(NAME) $(NAME_G)
 
 %o: %c
 	@gcc -g -o $@ -c $< $(CFLAGS) $(INCL)
@@ -28,20 +40,26 @@ OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
 	@cd libft && make
-	@gcc $(LIBS) -g -o $(NAME) $(OBJ)
+	@gcc $(LIBS) -g -o $(NAME) $(OBJ) $(INCL)
 	@echo "\033[K\033[32m$(NAME)\033[00m : \033[34mCreated\033[00m"
 	@cp -f $(NAME) players/
 
-all: $(NAME)
+$(NAME_G): $(OBJ_G)
+	@cd libft && make
+	@gcc $(LIBS) -g -o $(NAME_G) $(OBJ_G) $(INCL)
+	@echo "\033[K\033[32m$(NAME_G)\033[00m : \033[34mCreated\033[00m"
+	@cp -f $(NAME_G) players/
 
 clean:
 	@cd libft && make clean
 	@rm -f $(OBJ)
+	@rm -f $(OBJ_G)
 	@echo "\033[31mClean\033[01m Done\033[00m"
 
 fclean: clean
 	@rm -f libft/libftprintf.a
 	@rm -f players/$(NAME) $(NAME)
+	@rm -f players/$(NAME_G) $(NAME_G)
 	@echo "\033[31mFclean\033[01m Done\033[00m"
 
 mclean: all clean

@@ -6,20 +6,20 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:52:55 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/04/23 19:01:34 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:27:56 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLER_H
 # define FILLER_H
 
-# include "../libft/includes/libft.h"
+# include <libft.h>
 # include <stdio.h>
 # include <errno.h>
 
 # define P1 'O'
 # define P2 'X'
-# define GRAPH 1
+# define GRAPH 0
 
 typedef struct	s_board
 {
@@ -38,6 +38,7 @@ typedef struct	s_piece
 typedef struct	s_data
 {
 	char	player;
+	int		graph;
 	t_board	*board;
 	t_piece	*piece;
 }				t_data;

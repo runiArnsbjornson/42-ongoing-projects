@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/23 11:17:29 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/04/23 15:58:10 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:33:12 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init(t_data *data, int *ref)
 	}
 	data->board->x = -2;
 	data->board->y = -2;
+	data->graph = 0;
 	ref[0] = 0;
 	ref[1] = 0;
 	ref[2] = 0;

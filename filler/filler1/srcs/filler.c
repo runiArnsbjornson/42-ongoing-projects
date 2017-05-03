@@ -6,34 +6,62 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/04/23 18:51:20 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:59:26 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
 
+int		starting_pos(t_data *data, int *ref)
+{
+	t_pos pos;
+	int start;
+
+	start = 1;
+	pos.y = 0;
+	while (pos.y < data->board->y)
+	{
+		pos.x = 0;
+		while (pos.x < data->board->x)
+		{
+			if (data->board->board[pos.y][pos.x] == data->player)
+			{
+				ref[5] = 1;
+				start = pos.x < data->board->x / 2 ? 1 : 2;
+				return (start);
+			}
+			pos.x++;
+		}
+		pos.y++;
+	}
+	return (1);
+}
+
 void	strategy(t_data *data, int *ref)
 {
 	static int swap = 0;
+	static int start = 0;
 
 	if (ref[2] == (data->piece->y + 1))
 	{
 		if (ref[5] == 0)
-			data->player == 'O' ? block(data, ref) : block_p2(data, ref);
+			start = starting_pos(data, ref);
+		if (ref[5] == 1)
+			start == 1 ? block(data, ref) : block_p2(data, ref);
 		else
 		{
 			if (swap == 0)
 			{
-				data->player == 'O' ? search(data) : search_p2(data);
+				start == 1 ? search(data) : search_p2(data);
 				swap = 1;
 			}
 			else
 			{
-				data->player == 'O' ? fill(data) : fill_p2(data);
+				start == 1 ? fill(data) : fill_p2(data);
 				swap = 0;
 			}
 		}
-		GRAPH == 1 ? display_graph(data) : 0;
+		data->graph == 1 ? display_graph(data) : 0;
 		init(data, ref);
 	}
 }

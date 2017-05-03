@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/23 14:55:26 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/04/23 15:42:56 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/03 15:47:06 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	block_p2(t_data *data, int *ref)
 				ft_putnbr_fd(pos.x, 1);
 				ft_putchar_fd('\n', 1);
 				if (pos.x == data->board->x || pos.y == data->board->y)
-					ref[5] = 1;
+					ref[5] = 2;
 				return ;
 			}
 			pos.y--;
@@ -56,7 +56,7 @@ void	block(t_data *data, int *ref)
 				ft_putnbr_fd(pos.x, 1);
 				ft_putchar_fd('\n', 1);
 				if (pos.x == 0 || pos.y == 0)
-					ref[5] = 1;
+					ref[5] = 2;
 				return ;
 			}
 			pos.y++;
