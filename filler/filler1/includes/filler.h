@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:52:55 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/05 09:11:30 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:40:43 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <libft.h>
 # include <stdio.h>
 # include <errno.h>
+
 
 # define P1 'O'
 # define P2 'X'

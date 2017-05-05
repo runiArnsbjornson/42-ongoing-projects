@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/05 11:06:46 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:56:54 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	get_piece(t_data *data, int *ref, char **res)
 		if (!(data->piece->piece = malloc(sizeof(char *) *
 		(data->piece->y + 1))))
 			perror("Error malloc");
-		data->piece->piece[data->piece->y] = 0;
+		data->piece->piece[data->piece->y] = NULL;
 	}
 	ref[2] > 0 ? data->piece->piece[ref[2] - 1] = ft_strdup(res[0]) : 0;
 	ref[2] += 1;
@@ -101,7 +101,7 @@ void	get_board(t_board *board, int *ref, char **res)
 		}
 		if (!(board->board = malloc(sizeof(char *) * (board->y + 1))))
 			perror("Error malloc");
-		board->board[board->y] = 0;
+		board->board[board->y] = NULL;
 	}
 	if (ref[1] > 1)
 		board->board[ref[1] - 2] = ft_strdup(res[1]);
