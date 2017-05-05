@@ -38,17 +38,22 @@ void	init(t_data *data, int *ref)
 
 int		main(void)
 {
-	t_data	data;
+	t_data	*data;
 	int		ref[6];
 	int		i;
 
 	i = 0;
+	sleep(1);
+	if (!(data = (t_data *)malloc(sizeof(t_data))))
+		perror("Error Malloc");
+	data->piece = NULL;
+	data->board = NULL;
 	while (i <= 5)
 	{
 		ref[i] = 0;
 		++i;
 	}
-	init(&data, ref);
-	parse(&data, ref);
+	init(data, ref);
+	parse(data, ref);
 	return (0);
 }

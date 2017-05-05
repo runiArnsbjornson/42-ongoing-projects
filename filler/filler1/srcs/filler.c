@@ -128,4 +128,5 @@ void	parse(t_data *data, int *ref)
 		ref[2] < (data->piece->y + 2))
 			get_piece(data, ref, res);
 	}
+	ft_tabdel(res);
 }

@@ -30,7 +30,7 @@ INCL = -I includes -I libft/libft
 
 LIBS = -Llibft -lftprintf
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O0
 
 all: $(NAME) $(NAME_G)
 
