@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:52:55 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/03 15:27:56 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/05 09:11:30 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct	s_pos
 */
 void			block_p2(t_data *data, int *ref);
 void			block(t_data *data, int *ref);
+void			block_p2_2(t_data *data, int *ref);
+void			block_2(t_data *data, int *ref);
 /*
 ** display.c
 */

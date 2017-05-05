@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/03 15:59:26 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/05 11:06:46 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ void	strategy(t_data *data, int *ref)
 			start = starting_pos(data, ref);
 		if (ref[5] == 1)
 			start == 1 ? block(data, ref) : block_p2(data, ref);
+		else if (ref[5] == 2)
+			start == 1 ? block_2(data, ref) : block_p2_2(data, ref);
 		else
 		{
-			if (swap == 0)
-			{
+			if (swap++ == 0)
 				start == 1 ? search(data) : search_p2(data);
-				swap = 1;
-			}
 			else
 			{
 				start == 1 ? fill(data) : fill_p2(data);
