@@ -6,13 +6,13 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 11:00:07 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/04/20 12:08:46 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/03 10:27:50 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_nstrjoin(int nbr, ...)
+char	*ft_strnjoin(int nbr, ...)
 {
 	int		i;
 	va_list	args;

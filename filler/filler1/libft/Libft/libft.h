@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/02 12:35:46 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 12:00:04 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@
 # define BWHT "\033[47m"
 # define OVR "\033[53m"
 # define RES "\033[00m"
+
+typedef struct	s_lst
+{
+	int				fd;
+	char			*temp;
+	char			*cara;
+	struct s_lst	*next;
+	struct s_lst	*deb;
+}				t_lst;
 
 typedef struct	s_list
 {
@@ -145,7 +154,7 @@ int				ft_wcsnlen(const wchar_t *s, size_t n);
 /*
 **	not ft_functions
 */
-
+int				ft_gnl(const int fd, char **line);
 int				get_next_line(const int fd, char **line);
 
 #endif

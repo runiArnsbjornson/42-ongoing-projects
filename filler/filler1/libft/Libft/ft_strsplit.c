@@ -55,7 +55,7 @@ static char		*ft_letter(const char *s, unsigned int start, size_t len)
 	size_t	i;
 	size_t	j;
 
-	if (len <= 0 || !(ret = malloc(sizeof(char) * (len + 1))))
+	if (!(s) || len <= 0 || !(ret = malloc(sizeof(char) * len + 1)))
 		return (NULL);
 	i = start;
 	j = 0;
@@ -65,7 +65,7 @@ static char		*ft_letter(const char *s, unsigned int start, size_t len)
 	return (ret);
 }
 
-char			**ft_strsplit(const char *s, char c)
+char			**ft_strsplit(char const *s, char c)
 {
 	char	**ret;
 	size_t	words;
@@ -73,7 +73,7 @@ char			**ft_strsplit(const char *s, char c)
 	size_t	j;
 
 	words = ft_count_words((char *)s, c);
-	if (!(ret = malloc(sizeof(char *) * (words + 1))) || !s || !c)
+	if (!(ret = malloc(sizeof(char *) * words + 1)) || !s || !c)
 		return (NULL);
 	i = 0;
 	j = 0;

@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/05 17:12:49 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/08 13:02:26 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ INCL = -I includes -I libft/libft
 
 LIBS = -Llibft -lftprintf
 
-CFLAGS = -Wall -Wextra -Werror -O0
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME) $(NAME_G)
 

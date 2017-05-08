@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/05 16:56:54 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 12:25:52 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	parse(t_data *data, int *ref)
 	char *line;
 	char **res;
 
-	while (get_next_line(0, &line))
+	while (ft_gnl(0, &line))
 	{
 		res = ft_strsplit(line, ' ');
 		if (ref[0] == 0 && ft_strcmp(res[0], "$$$") == 0)
@@ -129,4 +129,5 @@ void	parse(t_data *data, int *ref)
 			get_piece(data, ref, res);
 	}
 	ft_tabdel(res);
+	line = NULL;
 }
