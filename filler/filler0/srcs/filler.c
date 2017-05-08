@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 17:45:00 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 18:28:46 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	parse(t_data *data, int *ref)
 	while (ft_gnl(0, &line))
 	{
 		res = ft_strsplit(line, ' ');
-		if (!res[1] || !res[2])
+		if (!res[0] || !res[1] || !res[2])
 			ft_put_error();
 		if (ref[0] == 0 && ft_strcmp(res[0], "$$$") == 0)
 		{
