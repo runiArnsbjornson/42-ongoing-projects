@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 09:54:15 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 12:23:00 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 13:27:08 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	display_percent(t_data *data, t_display *color)
 	int total;
 
 	total = data->board->x * data->board->y;
-	ft_putstr_fd(BMAG BOL"P1"RES MAG" = ", 2);
+	ft_putstr_fd(BMAG "P1"RES MAG" = ", 2);
 	ft_putnbr_fd(color->red * 100 / total, 2);
 	ft_putstr_fd("% (", 2);
 	ft_putnbr_fd(color->red, 2);
-	ft_putstr_fd(" spaces)\t"RES BGRN BLU"P2"RES GRN" = ", 2);
+	ft_putstr_fd(" spaces)\t"RES BGRN BLU "P2"RES GRN" = ", 2);
 	ft_putnbr_fd(color->grn * 100 / total, 2);
 	ft_putstr_fd("% (", 2);
 	ft_putnbr_fd(color->grn, 2);
@@ -43,7 +43,7 @@ void	display_color(t_data *data, t_pos *pos, t_display *color)
 	if (data->board->board[pos->y][pos->x] == P2)
 	{
 		color->grn++;
-		ft_putstr_fd(FAI BGRN"  "RES, 2);
+		ft_putstr_fd(BGRN"  "RES, 2);
 	}
 	else if (data->board->board[pos->y][pos->x] == P1)
 	{

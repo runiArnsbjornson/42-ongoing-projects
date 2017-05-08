@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:52:55 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/05 16:40:43 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 13:23:54 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <libft.h>
 # include <stdio.h>
 # include <errno.h>
-
 
 # define P1 'O'
 # define P2 'X'
@@ -80,7 +79,7 @@ void			get_piece(t_data *data, int *ref, char **res);
 void			get_board(t_board *board, int *ref, char **res);
 void			parse(t_data *data, int *ref);
 /*
-** main.c
+** main.c main_g.c
 */
 void			init(t_data *data, int *ref);
 /*
