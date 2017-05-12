@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/12 16:55:47 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:04:24 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_free(t_data *data)
 		free(tmp->name);
 		free(tmp);
 		tmp = data->room;
-		data->room = data->room->next;
+		data->room = (t_room*)data->room->next;
 		free(tmp);
 	}
 	while (data->path)
@@ -34,7 +34,7 @@ void	ft_free(t_data *data)
 	}
 	while (data->c)
 	{
-		free(data->c->content)
+		free(data->c->content);
 		tmp = data->c;
 		data->c = data->c->next;
 		free(tmp);
@@ -47,13 +47,13 @@ void	ft_error(t_data *data, char *str)
 	if (str)
 	{
 		ft_putstr_fd(RES " : ", 2);
-		ft_putendl_fd(str);
+		ft_putendl_fd(str, 2);
 	}
 	ft_free(data);
 	exit(0);
 }
 
-void	get_ants_nbr(t_data *data, char **res)
+void	get_ants_nbr(t_data *data)
 {
 	char	*line;
 
@@ -149,7 +149,7 @@ int		main(void)
 	t_data	*data;
 
 	if (!(data = (t_data *)malloc(sizeof(t_data))))
-		MERROR
+		ft_error(data, "error malloc");
 	data->room = NULL;
 	data->path = NULL;
 	data->c = NULL;
