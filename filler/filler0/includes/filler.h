@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:52:55 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 17:40:26 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/15 12:51:00 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void			display_graph(t_data *data);
 /*
 ** filler.c
 */
+int				starting_pos(t_data *data, int *ref);
 void			strategy(t_data *data, int *ref);
 void			get_piece(t_data *data, int *ref, char **res);
 void			get_board(t_board *board, int *ref, char **res);

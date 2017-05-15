@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 13:09:26 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/09 13:09:59 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:41:17 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int		ft_atoi(const char *str)
 {
@@ -19,8 +21,11 @@ int		ft_atoi(const char *str)
 	i = 0;
 	n = 1;
 	ret = 0;
-	while (str[i] == '\n' || str[i] == '\r' || str[i] == '\f'
-			|| str[i] == '\v' || str[i] == '\t' || str[i] == ' ')
+	if (!str)
+		ft_put_error();
+	if (ft_strlen(str) > 10)
+		return ((int)ft_strtol(str));
+	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -28,10 +33,8 @@ int		ft_atoi(const char *str)
 			n = -1;
 		i++;
 	}
-	while (str[i] != '\0')
+	while (ft_isdigit(str[i]))
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (ret * n);
 		ret = (ret * 10 + (str[i]) - '0');
 		i++;
 	}

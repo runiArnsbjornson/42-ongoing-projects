@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/02 17:19:51 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/08 13:19:29 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 
 OBJ_G = $(SRC_G:.c=.o)
 
-INCL = -I includes
+INCL = -I includes -I libft/libft
 
 LIBS = -Llibft -lftprintf
 
@@ -57,9 +57,7 @@ clean:
 	@echo "\033[31mClean\033[01m Done\033[00m"
 
 fclean: clean
-	@rm -f libft/libftprintf.a
-	@rm -f players/$(NAME) $(NAME)
-	@rm -f players/$(NAME_G) $(NAME_G)
+	@rm -f libft/libftprintf.a libft/libft/libft.a players/$(NAME) $(NAME) players/$(NAME_G) $(NAME_G)
 	@echo "\033[31mFclean\033[01m Done\033[00m"
 
 mclean: all clean

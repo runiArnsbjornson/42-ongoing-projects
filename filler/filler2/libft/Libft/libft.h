@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/02 12:35:46 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:23:12 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@
 # define BWHT "\033[47m"
 # define OVR "\033[53m"
 # define RES "\033[00m"
+
+typedef struct	s_lst
+{
+	int				fd;
+	char			*temp;
+	char			*cara;
+	struct s_lst	*next;
+	struct s_lst	*deb;
+}				t_lst;
 
 typedef struct	s_list
 {
@@ -86,6 +95,7 @@ void			ft_memdel(void **ap);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_occurence(int n, char **argv);
+void			ft_put_error(void);
 int				ft_printf(const char *format, ...);
 void			ft_putchar_fd(int c, int fd);
 void			ft_putchar(int c);
@@ -130,6 +140,7 @@ char			*ft_strrev(char *s);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_strstr(const char *big, const char *little);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
+long			ft_strtol(const char *nptr);
 char			*ft_strtrim(char const *s);
 char			**ft_tab(size_t col, size_t line);
 void			ft_tabdel(char **tab);
@@ -145,7 +156,7 @@ int				ft_wcsnlen(const wchar_t *s, size_t n);
 /*
 **	not ft_functions
 */
-
+int				ft_gnl(const int fd, char **line);
 int				get_next_line(const int fd, char **line);
 
 #endif

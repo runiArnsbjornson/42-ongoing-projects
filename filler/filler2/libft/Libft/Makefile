@@ -6,20 +6,22 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/04/20 12:27:31 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/08 16:22:51 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-AR = ar rc
-INCL = libft.h
-CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
+
+INCL = .
+
+CFLAGS = -Wall -Wextra -Werror
+
 SRC = ft_abs.c \
 	ft_atoi.c \
 	ft_bool_strchr.c \
 	ft_bzero.c \
 	ft_ftoa.c \
+	ft_gnl.c \
 	ft_isalnum.c \
 	ft_isalpha.c \
 	ft_isascii.c \
@@ -49,6 +51,7 @@ SRC = ft_abs.c \
 	ft_memmove.c \
 	ft_memset.c \
 	ft_occurence.c \
+	ft_put_error.c \
 	ft_putchar.c \
 	ft_putchar_fd.c \
 	ft_putendl.c \
@@ -92,6 +95,7 @@ SRC = ft_abs.c \
 	ft_strsplit.c \
 	ft_strstr.c \
 	ft_strsub.c \
+	ft_strtol.c \
 	ft_strtrim.c \
 	ft_tab.c \
 	ft_tabdel.c \
@@ -104,28 +108,31 @@ SRC = ft_abs.c \
 	ft_wcsnbytelen.c \
 	ft_wcsnlen.c \
 	get_next_line.c
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 %.o: %.c
 	@echo "\033[K\033[34mLibft :\033[0m [ Compiling :\033[33m $^\033[0m]\033[1A"
-	@$(CC) -g -o $@ -c $< $(CFLAGS) -I $(INCL)
+	@gcc -g -o $@ -c $< $(CFLAGS) -I $(INCL)
+
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "\033[34mCompiling\033[0m" [ $(NAME) ] "\033[K\033[32mSuccessful\033[0m"
 
 clean:
 	@/bin/rm -f $(OBJ)
-	@echo "\033[31mRemoval\033[0m  " [ "*.o" ] "  \033[32mComplete\033[0m"
-
-re: fclean all
-	@echo "\033[32m*** Let's start anew ***\033[00m"
+	@echo "\033[31mClean \033[32mDone\033[0m"
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@echo "\033[31mRemoval\033[0m" [ $(NAME) ] "\033[32mComplete\033[0m"
+	@echo "\033[31mFclean\033[32m Done\033[0m"
 
-$(NAME): $(OBJ)
-	@$(AR) $(NAME) $(OBJ)
-	@ranlib $(NAME)
-	@echo "\033[34mCompiling\033[0m" [ $(NAME) ] "\033[K\033[32mSuccessful\033[0m"
+re: 
+	@$(MAKE) fclean
+	@$(MAKE) all
+	@echo "\033[32m*** Re Done ***\033[00m"
 
 .PHONY : all clean fclean re

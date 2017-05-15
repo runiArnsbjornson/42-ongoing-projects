@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 18:28:46 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/15 13:30:37 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,11 @@ void	get_board(t_board *board, int *ref, char **res)
 		board->board[board->y] = NULL;
 	}
 	if (ref[1] > 1)
+	{
+		if (res[1] == NULL)
+			ft_put_error();
 		board->board[ref[1] - 2] = ft_strdup(res[1]);
+	}
 	ref[1] += 1;
 }
 
@@ -116,20 +120,20 @@ void	parse(t_data *data, int *ref)
 	while (ft_gnl(0, &line))
 	{
 		res = ft_strsplit(line, ' ');
-		if (!res[0] || !res[1] || !res[2])
+		if (!res[0])
 			ft_put_error();
-		if (ref[0] == 0 && ft_strcmp(res[0], "$$$") == 0)
+		if (ref[0] == 0 && ft_strcmp("$$$", res[0]) == 0)
 		{
+			if (!res[1] || ft_strcmp("exec", res[1]) || !res[2])
+				ft_put_error();
 			data->player = (ft_atoi(++res[2]) == 1) ? P1 : P2;
 			ref[0] += 1;
 		}
 		else if (ft_strcmp(res[0], "Plateau") == 0 ||
-		ref[1] < (data->board->y + 2))
+		(ref[1] < (data->board->y + 2) && ft_isdigit(**res)))
 			get_board(data->board, ref, res);
 		else if (ft_strcmp(res[0], "Piece") == 0 ||
-		ref[2] < (data->piece->y + 2))
+		(ref[2] < (data->piece->y + 2) && (**res == '.' || **res == '*')))
 			get_piece(data, ref, res);
 	}
-	ft_tabdel(res);
-	line = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 17:44:36 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/10 16:39:08 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/03 10:39:06 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	void *p;
+	unsigned char		tc;
+	unsigned char		*tdst;
+	const unsigned char	*tsrc;
 
-	p = ft_memchr(src, c, n);
-	if (p != NULL)
-		return (ft_memcpy(dst, src, p - src + 1));
-	ft_memcpy(dst, src, n);
+	if (n)
+	{
+		tdst = dst;
+		tsrc = src;
+		tc = c;
+		while (n)
+		{
+			if ((*tdst++ = *tsrc++) == tc)
+				return (tdst);
+			n--;
+		}
+	}
 	return (NULL);
 }

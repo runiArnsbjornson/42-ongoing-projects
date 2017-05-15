@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strtol.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 18:59:05 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 18:23:59 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/05/08 16:22:13 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/05/08 16:26:37 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+long	ft_strtol(const char *nptr)
 {
-	size_t i;
+	const char	*s = nptr;
+	int			c;
+	int			neg;
+	long		ret;
 
-	i = 0;
-	while (s1[i] == s2[i])
+	if (nptr == NULL)
+		ft_put_error();
+	neg = 1;
+	while (ft_isspace(*s))
+		c = *s++;
+	if (*s == '-' || *s == '+')
 	{
-		if (s1[i] == '\0')
-			return (0);
-		i++;
+		if (*s == '-')
+			neg = -1;
+		c = *s++;
 	}
-	return ((unsigned char)s1[i] < (unsigned char)s2[i] ? -1 : 1);
+	ret = 0;
+	while (ft_isdigit(*s))
+		ret = 10 * ret + *s++ - '0';
+	return (ret * neg);
 }
