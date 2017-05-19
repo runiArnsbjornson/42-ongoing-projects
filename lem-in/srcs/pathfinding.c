@@ -1,30 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabdel.c                                        :+:      :+:    :+:   */
+/*   pathfinding.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/14 09:19:16 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/17 14:13:07 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/05/18 16:45:43 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/05/18 16:45:57 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <lem_in.h>
 
-void	ft_tabdel(char **tab)
-{
-	int i;
-
-	if (tab != NULL)
-	{
-		i = 0;
-		while (tab[i])
-		{
-			free(tab[i]);
-			i++;
-		}
-		free(tab[i]);
-		free(tab);
-	}
-}

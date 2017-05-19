@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:52:55 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/15 15:53:54 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/17 13:42:54 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ void			display_graph(t_data *data);
 */
 int				starting_pos(t_data *data, int *ref);
 void			strategy(t_data *data, int *ref);
-void			get_piece(t_data *data, int *ref, char *line);
-void			get_board(t_board *board, int *ref, char *line);
+void			get_piece(t_data *data, t_piece *piece, int *ref, char *line);
+void			get_board(t_data *data, t_board *board, int *ref, char *line);
 void			parse(t_data *data, int *ref);
 /*
 ** main.c
 */
+void			ft_free(t_data *data);
+void			ft_error(t_data *data, char *str);
 void			init(t_data *data, int *ref);
 /*
 ** search.c

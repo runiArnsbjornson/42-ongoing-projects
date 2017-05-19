@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/10 10:02:22 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/18 11:27:10 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRC = ft_abs.c \
 	ft_split.c \
 	ft_sqrt.c \
 	ft_strcat.c \
+	ft_strccpy.c \
 	ft_strchr.c \
 	ft_strclr.c \
 	ft_strcmp.c \

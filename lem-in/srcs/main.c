@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/12 16:55:47 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 10:12:50 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,108 +14,120 @@
 
 void	ft_free(t_data *data)
 {
-	t_room *tmp;
+	t_list *tmp;
 
 	while (data->room)
 	{
-		tmp = (t_room*)data->room->content;
-		free(tmp->name);
-		free(tmp);
 		tmp = data->room;
 		data->room = data->room->next;
 		free(tmp);
+		tmp = NULL;
 	}
 	while (data->path)
 	{
-		free(data->path->content)
 		tmp = data->path;
 		data->path = data->path->next;
 		free(tmp);
+		tmp = NULL;
 	}
-	while (data->c)
-	{
-		free(data->c->content)
-		tmp = data->c;
-		data->c = data->c->next;
-		free(tmp);
-	}
+	free(data);
+	data = NULL;
 }
 
-void	ft_error(t_data *data, char *str)
+void	display(t_data *data)
+{
+	t_list *save;
+
+	save = data->room;
+	while (data->room)
+	{
+		if (((t_room *)(data->room->content))->type == 1)
+			ft_putendl("entrance");
+		if (((t_room *)(data->room->content))->type == 2) 
+			ft_putendl("exit");
+		ft_putendl(((t_room *)(data->room->content))->name);
+		data->room = data->room->next;
+	}
+	data->room = save;
+	save = data->path;
+	while (data->path)
+	{
+		ft_putstr(((t_path *)(data->path->content))->r1);
+		ft_putstr("<=>");
+		ft_putendl(((t_path *)(data->path->content))->r2);
+		data->path = data->path->next;
+	}
+	data->path = save;
+}
+
+void	ft_error(char *str)
 {
 	ft_putstr_fd(RED "ERROR", 2);
 	if (str)
 	{
 		ft_putstr_fd(RES " : ", 2);
-		ft_putendl_fd(str);
+		ft_putendl_fd(str, 2);
 	}
-	ft_free(data);
 	exit(0);
 }
 
-void	get_ants_nbr(t_data *data, char **res)
+void	get_ants_nbr(t_data *data)
 {
 	char	*line;
 
 	if (ft_gnl(0, &line) > 0)
 	{
 		if (!line)
-			ft_error(data, "error gnl");
+			ft_error("error gnl");
 		data->ants = ft_atoi(line);
-		free(line);
 		if (data->ants < 1)
-			ft_error(data, "Bad ants nbr");
+			ft_error("Bad ants nbr");
+		free(line);
 	}
 }
 
 void	get_path(t_data *data, char *line)
 {
-	t_path		path;
-	char		**tmp;
-	static int	nbr = 0;
+	t_path		*path;
 
 	if (ft_bool_strchr(line, '-') == 0)
 		return ;
-	if (line)
+	if (line != NULL)
 	{
-		tmp = ft_strsplit(line, '-');
-		if (!tmp[0] || !tmp[1])
-			ft_error(data, "error split");
-		path.r1 = ft_atoi(tmp[0]);
-		path.r2 = ft_atoi(tmp[1]);
-		ft_lstaddend(data->path, ft_lstnew(path, sizeof(t_path)));
-		
-		ft_tabdel(tmp);
+		path = malloc(sizeof(t_path));
+		path->r1 = ft_strccpy(line, '-');
+		path->r2 = ft_strchr(line, '-') + 1;
+		ft_lstaddend(&(data->path), ft_lstnew(path, sizeof(t_path)));
+		free(path);
 	}
 }
 
 void	get_room(t_data *data, char *line)
 {
-	t_room	room;
-	char	**tmp;
+	t_room	*room;
 
 	if (ft_bool_strchr(line, '-'))
 		return ;
-	if (line)
+	if (line != NULL)
 	{
-		tmp = ft_strsplit(line, ' ');
-		if (!tmp[0] || !tmp[1] || !tmp[2])
-			ft_error(data, "error split");
-		room.name = tmp[0];
-		room.ant = 0;
+		room = malloc(sizeof(t_room));
+		room->name = ft_strccpy(line, ' ');
+		room->ant = 0;
 		if (data->start || data->end)
-		{
-			room.type = data->start == 1 ? 1 : 2;
-			data->start = 0;
-			data->end = 0;
-		}
+			room->type = data->start == 1 ? 1 : 2;
 		else
-			room.type = 0;
-		room.pos.x = ft_atoi(tmp[1]);
-		room.pos.y = ft_atoi(tmp[2]);
-		ft_lstaddend(data->room, ft_lstnew(room, sizeof(t_room)));
-		ft_tabdel(tmp);
+			room->type = 0;
+		room->pos.x = ft_atoi(ft_strchr(line, ' '));
+		room->pos.y = ft_atoi(ft_strrchr(line, ' '));
+		ft_lstaddend(&(data->room), ft_lstnew(room, sizeof(t_room)));
+		free(room);
 	}
+}
+
+void	clean_type(t_data *data)
+{
+	data->start = 0;
+	data->end = 0;
 }
 
 void	parser(t_data *data)
@@ -128,11 +140,11 @@ void	parser(t_data *data)
 		if (ft_strncmp(line, "##", 2) == 0)
 		{
 			if (ft_strcmp(line + 2, "start") == 0)
-				data->start += 1;
-			if (ft_strcmp(line + 2, "end") == 0)
-				data->end += 1;
+				data->start = 1;
+			else if (ft_strcmp(line + 2, "end") == 0)
+				data->end = 1;
 			else
-				ft_error(data, "wrong room");
+				ft_error("wrong room");
 		}
 		else if (ft_strncmp(line, "#", 1) == 0)
 			ft_putendl_fd(line + 1, 2);
@@ -140,23 +152,33 @@ void	parser(t_data *data)
 		{
 			get_room(data, line);
 			get_path(data, line);
+			clean_type(data);
 		}
+		free(line);
 	}
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_data	*data;
+	static int	graph = 0;
 
+	if (ac != 1)
+	{
+		if (ft_strcmp(av[1], "-g") == 0)
+			graph = 1;
+	}
 	if (!(data = (t_data *)malloc(sizeof(t_data))))
-		MERROR
+		perror("Error malloc");
 	data->room = NULL;
 	data->path = NULL;
-	data->c = NULL;
 	data->start = 0;
 	data->end = 0;
 	data->ants = 0;
 	data->paths = 0;
 	parser(data);
+	graph ? display(data) : 0;
+	//pathfinding(data);
+	ft_free(data);
 	return (0);
 }

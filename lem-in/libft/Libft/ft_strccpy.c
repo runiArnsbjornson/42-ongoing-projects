@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabdel.c                                        :+:      :+:    :+:   */
+/*   ft_strccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/14 09:19:16 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/17 14:13:07 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/05/18 09:55:33 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/05/18 12:44:25 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_tabdel(char **tab)
+char	*ft_strccpy(const char *src, int c)
 {
-	int i;
+	char	*ret;
+	int		i;
+	int		j;
 
-	if (tab != NULL)
+	ret = NULL;
+	if (!src)
+		return (ret);
+	if (c != 0)
 	{
 		i = 0;
-		while (tab[i])
-		{
-			free(tab[i]);
+		while (src[i] != (unsigned char)c)
 			i++;
+		if (!(ret = malloc(sizeof(char) * (i + 1))))
+			return (NULL);
+		j = 0;
+		while (j < i)
+		{
+			ret[j] = src[j];
+			j++;
 		}
-		free(tab[i]);
-		free(tab);
+		ret[j] = 0;
 	}
+	return (ret);
 }

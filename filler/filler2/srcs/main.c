@@ -6,11 +6,25 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/23 11:17:29 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/15 17:21:00 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:13:12 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
+
+void	ft_error(t_data *data, char *str)
+{
+	ft_putstr_fd(RED "Error" RES, 2);
+	if (str)
+	{
+		ft_putstr_fd(RED " : " RES, 2);
+		ft_putendl_fd(str, 2);
+	}
+	else
+		ft_putstr_fd("\n", 2);
+	free(data);
+	exit(0);
+}
 
 void	init(t_data *data, int *ref)
 {
@@ -19,15 +33,15 @@ void	init(t_data *data, int *ref)
 		if ((data->piece = malloc(sizeof(t_piece *))) == 0)
 			perror("Error malloc");
 	}
-	data->piece->x = 0;
-	data->piece->y = 0;
+	data->piece->x = -2;
+	data->piece->y = -2;
 	if (!data->board)
 	{
 		if ((data->board = malloc(sizeof(t_board *))) == 0)
 			perror("Error malloc");
 	}
-	data->board->x = 0;
-	data->board->y = 0;
+	data->board->x = -2;
+	data->board->y = -2;
 	data->graph = 0;
 	ref[0] = 0;
 	ref[1] = 0;

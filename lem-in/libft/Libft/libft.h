@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/10 10:10:04 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/18 12:42:40 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				ft_isupper(int c);
 ** list func
 */
 void			ft_lstadd(t_list **alst, t_list *new);
-void			ft_lstaddend(t_list **alst, t_list *new);
+int				ft_lstaddend(t_list **alst, t_list *new);
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
@@ -141,6 +141,7 @@ char			*ft_strchr(const char *s, int c);
 void			ft_strclr(char *s);
 int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strcpy(char *dst, const char *src);
+char			*ft_strccpy(const char *src, int c);
 void			ft_strdel(char **as);
 char			*ft_strdup(const char *src);
 int				ft_strequ(char const *s1, char const *s2);

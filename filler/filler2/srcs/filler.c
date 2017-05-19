@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 18:20:46 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/15 17:19:43 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:28:47 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		starting_pos(t_data *data, int *ref)
 	t_pos	pos;
 	int		start;
 
-	start = 1;
+	start = 0;
 	pos.y = 0;
 	while (pos.y < data->board->y)
 	{
@@ -34,7 +34,8 @@ int		starting_pos(t_data *data, int *ref)
 		}
 		pos.y++;
 	}
-	return (1);
+	ref[5] = 1;
+	return (3);
 }
 
 void	strategy(t_data *data, int *ref)
@@ -42,66 +43,55 @@ void	strategy(t_data *data, int *ref)
 	static int swap = 0;
 	static int start = 0;
 
-	if (ref[2] == (data->piece->y + 1))
+	if (ref[5] == 0)
+		start = starting_pos(data, ref);
+	if (ref[5] == 1)
+		start == 1 ? block(data, ref) : block_p2(data, ref);
+	else if (ref[5] == 2)
+		start == 1 ? block_2(data, ref) : block_p2_2(data, ref);
+	else
 	{
-		if (ref[5] == 0)
-			start = starting_pos(data, ref);
-		if (ref[5] == 1)
-			start == 1 ? block(data, ref) : block_p2(data, ref);
-		else if (ref[5] == 2)
-			start == 1 ? block_2(data, ref) : block_p2_2(data, ref);
+		if (swap++ == 0)
+			start == 1 ? search(data) : search_p2(data);
 		else
 		{
-			if (swap++ == 0)
-				start == 1 ? search(data) : search_p2(data);
-			else
-			{
-				start == 1 ? fill(data) : fill_p2(data);
-				swap = 0;
-			}
+			start == 1 ? fill(data) : fill_p2(data);
+			swap = 0;
 		}
-		data->graph == 1 ? display_graph(data) : 0;
-		init(data, ref);
 	}
+	data->graph == 1 ? display_graph(data) : 0;
+	init(data, ref);
 }
 
-void	get_piece(t_data *data, int *ref, char *line)
+void	get_piece(t_data *data, t_piece *piece, int *ref, char *line)
 {
-	char *tmp;
-	int i;
-
-	i = 0;
 	if (ref[2] == 0)
 	{
-		data->piece->y = ft_atoi(ft_strstr(line, " "));
-		data->piece->x = ft_atoi(ft_strrchr(line, ' '));
-		dprintf(2, "line=#%s# (%d) (%d)\n", line, data->piece->y, data->piece->x);
+		piece->y = ft_atoi(ft_strchr(line, ' '));
+		piece->x = ft_atoi(ft_strrchr(line, ' '));
 		if (ref[4] > 1)
 		{
-			ft_tabdel(data->piece->piece);
+			ft_tabdel(piece->piece);
 			ref[4] = 1;
 		}
-		if (!(data->piece->piece = malloc(sizeof(char *) * (data->piece->y + 1))))
+		if (!(piece->piece = malloc(sizeof(char *) * (piece->y + 1))))
 			perror("Error malloc");
-		data->piece->piece[data->piece->y] = NULL;
+		piece->piece[piece->y] = NULL;
 	}
-	tmp = line;
-	dprintf(2, "%s\n", tmp);
-	if (ref[2] > 0 && ref[2] < data->piece->y + 1)
-		data->piece->piece[ref[2] - 1] = ft_strdup(tmp);
-	while (data->piece->piece[i])
+	if (ref[2] > 0 && ref[2] < piece->y + 1)
 	{
-		dprintf(2, "p[%d]=[%s] %d %d\n", i, data->piece->piece[i], data->piece->y , data->piece->x);
-		i++;
+		if (line == NULL)
+			ft_error(data, 0);
+		piece->piece[ref[2] - 1] = ft_strdup(line);
 	}
 	ref[2] += 1;
 }
 
-void	get_board(t_board *board, int *ref, char *line)
+void	get_board(t_data *data, t_board *board, int *ref, char *line)
 {
 	if (ref[1] == 0)
 	{
-		board->y = ft_atoi(ft_strstr(line, " "));
+		board->y = ft_atoi(ft_strchr(line, ' '));
 		board->x = ft_atoi(ft_strrchr(line, ' '));
 		if (ref[3] > 1)
 		{
@@ -114,9 +104,9 @@ void	get_board(t_board *board, int *ref, char *line)
 	}
 	if (ref[1] > 1 && ref[1] < board->y + 2)
 	{
-		if (line == NULL)
-			ft_put_error();
-		board->board[ref[1] - 2] = ft_strdup(ft_strstr(line, " ") + 1);
+		if (line == NULL || (ft_strchr(line, ' ') + 1) == NULL)
+			ft_error(data, 0);
+		board->board[ref[1] - 2] = ft_strdup(ft_strchr(line, ' ') + 1 );
 	}
 	ref[1] += 1;
 }
@@ -128,16 +118,24 @@ void	parse(t_data *data, int *ref)
 	while (ft_gnl(0, &line))
 	{
 		if (!line)
-			ft_put_error();
-		dprintf(2, "line=<%s>\n", line);
-		if (ref[0]++ == 0 && ft_strncmp("$$$ exec p", line, 10) == 0)
-			data->player = line[10] == '1' ? 1 : 2;
-		else if (ft_strncmp("Plateau", line, 7) == 0 || (ref[1] > 0 && ref[1] <= (data->board->y + 1)))
-			get_board(data->board, ref, line);
-		else if (ft_strncmp("Piece", line, 5) == 0 || (ref[2] > 0 && ref[2] <= data->piece->y))
+			ft_error(data, "Bad player info");
+		if (ft_strncmp("$$$ exec p", line, 9) == 0 && ref[0]++ == 0)
 		{
-			get_piece(data, ref, line);
-			strategy(data, ref);
+			if (line[10] == '1' || line[10] == '2')
+				data->player = line[10] == '1' ? 'O' : 'X';
+			else
+				ft_error(data, "Bad player info");
 		}
+		else if (data->player && (ft_strncmp("Plateau", line, 7) == 0 ||
+		 ref[1] < data->board->y + 2))
+			get_board(data, data->board, ref, line);
+		else if (data->player && (ft_strncmp("Piece", line, 5) == 0 ||
+		 ref[2] < data->piece->y + 2))
+		{
+		get_piece(data, data->piece, ref, line);
+		ref[2] == data->piece->y + 1? strategy(data, ref) : 0;
+		}
+		else
+			ft_error(data, "bad player info");
 	}
 }
