@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 15:22:14 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 13:19:30 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:26:29 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 long double			float_size(long double n, va_list args, t_flag *f)
 {

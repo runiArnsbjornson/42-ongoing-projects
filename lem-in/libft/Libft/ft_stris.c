@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 12:35:08 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/23 15:21:24 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:41:34 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_stris(const char *s, int (*f)(char))
 	i = 0;
 	while (s[i])
 	{
-		if (f(((char *)s)[i]) == 0)
+		if (f(((char *)(uintptr_t)s)[i]) == 0)
 			return (0);
 		i++;
 	}

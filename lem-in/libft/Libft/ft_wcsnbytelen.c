@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:42:27 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/12 14:24:08 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:04:59 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_wcsnbytelen(const wchar_t *s, size_t n)
 {
 	const wchar_t	*p;
-	size_t			byte_size;
+	int				byte_size;
 
 	p = s;
 	byte_size = 0;
@@ -24,7 +24,7 @@ int		ft_wcsnbytelen(const wchar_t *s, size_t n)
 	while (*p)
 	{
 		byte_size += ft_wcbytesize(*p);
-		if (byte_size > n)
+		if (byte_size > (int)n)
 		{
 			byte_size -= ft_wcbytesize(*p);
 			break ;

@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:22:15 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 12:02:20 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:26:25 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 int		string_width(const char *s, t_flag *f, int len)
 {

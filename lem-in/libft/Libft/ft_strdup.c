@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 12:53:16 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/06 17:48:44 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:40:55 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strdup(const char *src)
 {
-	int		i;
-	char	*str;
+	unsigned long	i;
+	char			*str;
 
 	i = 0;
 	while (src[i])

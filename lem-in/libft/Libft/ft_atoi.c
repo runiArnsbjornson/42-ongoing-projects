@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 13:09:26 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 16:41:17 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/21 09:50:00 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_atoi(const char *str)
 	n = 1;
 	ret = 0;
 	if (!str)
-		ft_put_error();
+		ft_put_error("ft_atoi read NULL");
 	if (ft_strlen(str) > 10)
 		return ((int)ft_strtol(str));
 	while (ft_isspace(str[i]))

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 19:08:27 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/12/19 12:41:27 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:07:28 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_save(char **line, char **rest, char *buf)
 	start = ft_strchr(buf, '\n');
 	if (start)
 	{
-		tmp = ft_strsub(buf, 0, ft_lenght(buf, 0));
+		tmp = ft_strsub(buf, 0, (size_t)ft_lenght(buf, 0));
 		tmp2 = ft_strjoin(*line, tmp);
 		ft_strdel(line);
 		*line = tmp2;
@@ -55,7 +55,7 @@ static int	ft_save(char **line, char **rest, char *buf)
 
 static int	ft_line(char **line, char **rest, char *buf, int fd)
 {
-	int ret;
+	ssize_t ret;
 
 	if (!ft_strcmp(buf, ""))
 	{

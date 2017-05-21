@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:47:02 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 13:39:13 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:12:15 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_ftoa_mantis(char *buf, long long carac, long double n, int p)
 	mantis = n - (long double)carac;
 	approx = -mantis * ft_pwr(10, p + 1);
 	mantis = -mantis * ft_pwr(10, p);
-	digit = (float)mantis;
+	digit = (int)mantis;
 	approx = approx - digit * 10;
 	digit += (int)approx >= 5 ? 1 : 0;
 	while (j++ < p)

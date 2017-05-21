@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 19:52:03 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/12 14:27:43 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 15:17:45 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int		wstring_handler(va_list args, t_flag *f)
 	if (ls != NULL)
 	{
 		if (f->lag_dot)
-			len = ft_wcsnbytelen(ls, f->preci);
+			len = (int)ft_wcsnbytelen(ls, (size_t)f->preci);
 		else
 			len = ft_wcsbytelen(ls);
 		len = f->width > len ? f->width : len;
 		if (ft_wcscmp(ls, L"") == 0)
 			return (printer("", f, 0));
 		else
-			wprinter(ls, f, ft_wcslen(ls));
+			wprinter(ls, f, (int)ft_wcslen(ls));
 		return (len);
 	}
 	f->width += f->lag_space == 1 ? 1 : 0;
@@ -47,7 +47,7 @@ int		string_handler(va_list args, t_flag *f)
 	{
 		s = (char *)va_arg(args, char *);
 		if (s != NULL)
-			return (printer(s, f, ft_strlen(s)));
+			return (printer(s, f, (int)ft_strlen(s)));
 	}
 	f->width += f->lag_space == 1 ? 1 : 0;
 	return (printer("(null)", f, 6));

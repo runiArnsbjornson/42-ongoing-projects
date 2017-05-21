@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 15:04:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 13:17:47 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:26:24 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 char	check_conv(const char c)
 {

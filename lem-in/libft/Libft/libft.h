@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/18 12:42:40 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/21 09:49:10 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <float.h>
 # include <stdarg.h>
+# include <stdint.h>
 
 # define BUFF_SIZE 32
 # define TCLN "\e[1;1H\e[2J"
@@ -47,11 +48,11 @@
 
 typedef struct	s_lst
 {
-	int				fd;
+	long			fd;
 	char			*temp;
 	char			*cara;
 	struct s_lst	*next;
-	struct s_lst	*deb;
+	struct s_lst	*start;
 }				t_lst;
 
 typedef struct	s_list
@@ -117,7 +118,7 @@ void			*ft_memset(void *b, int c, size_t len);
 /*
 ** display func
 */
-void			ft_put_error(void);
+void			ft_put_error(char *str);
 int				ft_printf(const char *format, ...);
 void			ft_putchar_fd(int c, int fd);
 void			ft_putchar(int c);

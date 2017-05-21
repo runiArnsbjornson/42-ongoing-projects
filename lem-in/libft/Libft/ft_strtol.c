@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 16:22:13 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 16:26:37 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/21 09:49:46 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long	ft_strtol(const char *nptr)
 	long		ret;
 
 	if (nptr == NULL)
-		ft_put_error();
+		ft_put_error("ft_strtol read NULL");
 	neg = 1;
 	while (ft_isspace(*s))
 		c = *s++;

@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:33:05 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 13:08:28 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:28:21 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 void	zero_struct(t_flag *f)
 {
@@ -76,7 +76,7 @@ int		no_conv_handler(char fmt, t_flag *f)
 	{
 		buf[--j] = fmt;
 		j = zero_fill(buf, j, f, 0);
-		pc += printer(&buf[j], f, ft_strlen(&buf[j]));
+		pc += printer(&buf[j], f, (int)ft_strlen(&buf[j]));
 		zero_struct(f);
 	}
 	else

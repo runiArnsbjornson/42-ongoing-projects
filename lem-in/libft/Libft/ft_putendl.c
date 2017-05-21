@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 16:20:42 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/06 17:37:05 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:30:03 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_putendl(char const *s)
 {
-	ft_putstr((char *)s);
+	ft_putstr((char *)(uintptr_t)s);
 	write(1, "\n", 1);
 }

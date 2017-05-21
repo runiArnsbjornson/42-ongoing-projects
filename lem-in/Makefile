@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/18 12:46:35 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/19 15:05:56 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,11 @@ INCL = -I includes -I libft/libft
 
 LIBS = -Llibft -lftprintf
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Weverything -Werror -fdiagnostics-show-option -pedantic
 
 all: $(NAME)
 
-%o: %c
+%.o: %.c
 	@gcc -g -o $@ -c $< $(CFLAGS) $(INCL)
 	@echo "\033[K\033[34mCompiling\033[00m : \033[32m$^\033[00m"
 

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:42:07 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/02/27 18:50:06 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 12:48:35 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	*ft_itoa_base(long long n, int base)
 	n = n < 0 ? n : -n;
 	while (n)
 	{
-		buf[--i] = -(n % base) >= 10 ? -(n % base) + '7' : -(n % base) + '0';
+		if (-(n % base) >= 10)
+			buf[--i] = (char)(-(n % base) + '7');
+		else
+			buf[--i] = (char)(-(n % base) + '0');
 		n /= base;
 	}
 	if (neg && base == 10)

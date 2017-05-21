@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 00:59:13 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 12:16:32 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:26:23 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 void	wstring_width(const wchar_t *ls, t_flag *f, int len, int byte_len)
 {

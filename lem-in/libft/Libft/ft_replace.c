@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_replace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 11:52:44 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/21 15:23:19 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:32:23 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static size_t	ft_skip(const char *s, const char *old, int len)
 {
 	if (!*old)
-		return (len);
+		return ((size_t)len);
 	if (!*s)
 		return (0);
 	if (*s == *old)
@@ -57,7 +57,7 @@ char			*ft_replace(const char *s, const char *old, const char *new)
 	char	*ret;
 
 	if (!old)
-		return ((char *)s);
+		return ((char *)(uintptr_t)s);
 	len_new = ft_strlen(new);
 	if (!(ret = malloc(sizeof(char) * ft_len(s, old, len_new) + 1)))
 		return (NULL);

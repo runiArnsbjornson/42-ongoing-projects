@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:34:25 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/16 11:05:38 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 12:59:52 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 		i = 0;
 		while (i < content_size)
 		{
-			((char *)(new->content))[i] = ((char *)content)[i];
+			((char *)(new->content))[i] = ((char *)(uintptr_t)content)[i];
 			i++;
 		}
 		new->content_size = content_size;

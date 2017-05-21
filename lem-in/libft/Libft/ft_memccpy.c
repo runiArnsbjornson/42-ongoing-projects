@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 17:44:36 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/03 10:39:06 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:00:35 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	{
 		tdst = dst;
 		tsrc = src;
-		tc = c;
+		tc = (unsigned char)c;
 		while (n)
 		{
 			if ((*tdst++ = *tsrc++) == tc)

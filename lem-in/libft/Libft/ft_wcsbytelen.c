@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 17:50:44 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/01 18:24:41 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:00:06 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		ft_wcsbytelen(wchar_t *wc)
 {
-	char	*bin;
-	int		len;
 	int		nb_bytes;
 	int		i;
+	char	*bin;
+	size_t	len;
 
 	nb_bytes = 0;
 	i = 0;

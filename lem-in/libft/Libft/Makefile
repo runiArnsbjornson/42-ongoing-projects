@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/18 11:27:10 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/19 14:08:09 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 INCL = .
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wunused -Wextra -Werror -Weverything -fdiagnostics-show-option
 
 SRC = ft_abs.c \
 	ft_atoi.c \

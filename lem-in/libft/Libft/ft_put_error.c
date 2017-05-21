@@ -6,14 +6,18 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 15:26:51 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 16:26:14 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/21 09:36:17 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_put_error(void)
+void	ft_put_error(char *str)
 {
-	ft_putendl_fd("Error", 2);
-	exit(0);
+	ft_putstr_fd(RED "ERROR", 2);
+	if (str)
+	{
+		ft_putstr_fd(RES " : ", 2);
+		ft_putendl_fd(str, 2);
+	}
 }

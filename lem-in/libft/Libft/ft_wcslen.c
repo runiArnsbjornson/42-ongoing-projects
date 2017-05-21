@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 17:22:50 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/01 17:22:59 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:01:46 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ size_t				ft_wcslen(const wchar_t *s)
 	p = s;
 	while (*p)
 		p++;
-	return (p - s);
+	return ((size_t)(p - s));
 }

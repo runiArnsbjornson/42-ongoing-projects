@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 12:39:20 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/08 12:53:32 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 12:35:59 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 
 static t_lst	*find_init(t_lst *lst, int fd)
 {
-	t_lst	*temp2;
+	t_lst	*tmp;
 
+	tmp = NULL;
 	if (lst == NULL)
 	{
 		lst = malloc(sizeof(t_lst));
 		lst->temp = NULL;
-		lst->deb = lst;
+		lst->start = lst;
 		lst->next = NULL;
 		lst->fd = fd;
 		return (lst);
 	}
-	lst = lst->deb;
+	lst = lst->start;
 	while (lst != NULL && lst->fd != fd)
 	{
-		temp2 = lst;
+		tmp = lst;
 		lst = lst->next;
 	}
 	if (lst == NULL)
 	{
 		lst = find_init(lst, fd);
-		temp2->next = lst;
+		tmp->next = lst;
 	}
 	return (lst);
 }
@@ -43,7 +44,7 @@ static int		sup_lst(t_lst *lst)
 {
 	t_lst *tmp;
 
-	tmp = lst->deb;
+	tmp = lst->start;
 	if (tmp->next == lst)
 		tmp->next = lst->next;
 	while (tmp->next != lst && tmp->next != NULL)
@@ -58,24 +59,24 @@ static int		sup_lst(t_lst *lst)
 static	int		condition(t_lst *lst, char **line, char buff[BUFF_SIZE + 1])
 {
 	char	*cara;
-	char	*tempo;
+	char	*tmp;
 
 	if (lst->temp)
 	{
 		cara = ft_strchr(lst->temp, '\n');
 		if (cara != NULL)
 		{
-			*line = ft_strsub(lst->temp, 0, cara - lst->temp);
-			tempo = ft_strdup(cara + 1);
+			*line = ft_strsub(lst->temp, 0, (size_t)(cara - lst->temp));
+			tmp = ft_strdup(cara + 1);
 			free(lst->temp);
-			lst->temp = tempo;
+			lst->temp = tmp;
 			return (1);
 		}
 		else
 		{
-			tempo = ft_strjoin(lst->temp, buff);
+			tmp = ft_strjoin(lst->temp, buff);
 			free(lst->temp);
-			lst->temp = tempo;
+			lst->temp = tmp;
 		}
 	}
 	if (lst->temp == NULL)
@@ -94,7 +95,7 @@ static int		end_file(t_lst *lst, char **line)
 
 int				ft_gnl(const int fd, char **line)
 {
-	int				r;
+	ssize_t			r;
 	char			buff[BUFF_SIZE + 1];
 	static t_lst	*lst_first;
 	t_lst			*lst;

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 20:00:35 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/02 11:22:52 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:00:08 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		ft_wcbytesize(wchar_t wc)
 {
-	char	*bin;
-	int		len;
 	int		nb_bytes;
+	char	*bin;
+	size_t	len;
 
 	nb_bytes = 0;
 	bin = ft_itoa_base(wc, 2);

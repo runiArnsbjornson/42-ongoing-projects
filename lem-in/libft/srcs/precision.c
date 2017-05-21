@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:45:29 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/12 12:51:29 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:26:37 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 int		width_digit(const char *fmt, t_flag *f, int i, int flag)
 {

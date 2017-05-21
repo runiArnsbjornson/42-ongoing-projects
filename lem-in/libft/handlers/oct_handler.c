@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 15:20:01 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/12 13:00:02 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 15:21:36 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ int			oct_handler(va_list args, t_flag *f)
 	}
 	n = uint_size(0, args, f);
 	s = oct_to_string(buf, 32 + f->width + f->preci, n, f);
-	return (printer(s, f, ft_strlen(s)));
+	return (printer(s, f, (int)ft_strlen(s)));
 }

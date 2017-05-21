@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:46:48 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 17:09:13 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 15:13:05 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*utf8_convert(char *buf, size_t index, int code)
 	size_t				i;
 
 	i = 0;
-	bits_left = numberbits(code);
+	bits_left = numberbits((unsigned int)code);
 	if (buf == NULL || index < 5 || code < 0 || bits_left > 21 || buf == 0)
 		return (NULL);
 	push_char(buf, &index, '\0');

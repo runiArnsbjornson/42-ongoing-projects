@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdebladi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 18:49:53 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/11/16 18:59:11 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:38:10 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int		ft_sqrt(int n)
 		return (0);
 	if (n == 1)
 		return (1);
-	nb = n;
+	nb = (size_t)n;
 	i = 2;
 	while (i * i <= nb)
 	{
 		if (i * i == nb)
-			return (i);
+			return ((int)i);
 		i++;
 	}
 	return (0);

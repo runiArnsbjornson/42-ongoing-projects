@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:26:45 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/12/02 13:54:49 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:42:31 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*ret;
 
 	if (!(s1))
-		return ((char *)s2);
+		return ((char *)(uintptr_t)s2);
 	if (!(s2))
-		return ((char *)s1);
+		return ((char *)(uintptr_t)s1);
 	if ((ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)) == NULL)
 		return (NULL);
 	i = 0;

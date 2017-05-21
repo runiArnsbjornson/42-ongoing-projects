@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 09:55:33 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/18 12:44:25 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:39:01 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*ft_strccpy(const char *src, int c)
 {
-	char	*ret;
-	int		i;
-	int		j;
+	char			*ret;
+	unsigned long	i;
+	unsigned long	j;
 
 	ret = NULL;
 	if (!src)

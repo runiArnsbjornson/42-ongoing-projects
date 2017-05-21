@@ -6,11 +6,11 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 16:32:21 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/03/17 13:02:50 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:26:30 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <ft_printf.h>
 
 void	check_size(const char *fmt, t_flag *f, int i)
 {

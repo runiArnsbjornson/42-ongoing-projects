@@ -6,15 +6,15 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:29:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2016/12/19 12:37:37 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/19 13:37:09 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	lenght(char *str)
+static unsigned long	lenght(char *str)
 {
-	size_t i;
+	unsigned long i;
 
 	i = 0;
 	while (str[i] && ft_isspace(str[i]) == 0)
@@ -22,10 +22,10 @@ static int	lenght(char *str)
 	return (i);
 }
 
-static int	nb_word(char *str)
+static unsigned long	nb_word(char *str)
 {
-	size_t i;
-	size_t count;
+	int i;
+	unsigned long count;
 
 	i = 0;
 	count = 0;
@@ -41,15 +41,15 @@ static int	nb_word(char *str)
 	return (count);
 }
 
-char		**ft_split(char *str)
+char					**ft_split(char *str)
 {
-	char	**ret;
-	int		i;
-	int		j;
-	int		k;
-	int		len;
+	char			**ret;
+	unsigned long	i;
+	unsigned long	j;
+	unsigned long	k;
+	unsigned long	len;
 
-	if (!(ret = malloc(sizeof(char *) * nb_word(str) + 1)) || !str)
+	if (!(ret = malloc(sizeof(char *) * (nb_word(str) + 1))) || !str)
 		return (NULL);
 	i = 0;
 	k = 0;
@@ -59,7 +59,7 @@ char		**ft_split(char *str)
 		while (ft_isspace(str[k]) == 1)
 			k++;
 		len = lenght(&str[k]);
-		if (!(ret[i] = malloc(sizeof(char) * len + 1)))
+		if (!(ret[i] = malloc(sizeof(char) * (len + 1))))
 			return (NULL);
 		while (j <= len)
 			ret[i][j++] = str[k++];
