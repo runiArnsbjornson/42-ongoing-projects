@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:34:25 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/19 12:59:52 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/23 10:50:39 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	}
 	else
 	{
-		new->content = malloc(content_size);
+		new->content = malloc(content_size + 1);
 		i = 0;
-		while (i < content_size)
+		while (i <= content_size)
 		{
 			((char *)(new->content))[i] = ((char *)(uintptr_t)content)[i];
 			i++;
 		}
+		((char *)(new->content))[i] = '\0';
 		new->content_size = content_size;
 	}
 	new->next = NULL;

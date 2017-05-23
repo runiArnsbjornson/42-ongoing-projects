@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/19 14:08:09 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/23 11:05:25 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ SRC = ft_abs.c \
 	ft_putchar_fd.c \
 	ft_putendl.c \
 	ft_putendl_fd.c \
+	ft_putnbrendl.c \
+	ft_putnbrendl_fd.c \
 	ft_putnbr.c \
 	ft_putnbr_fd.c \
 	ft_putstr.c \

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/21 09:49:10 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/23 11:04:34 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ long			ft_strtol(const char *nptr);
 ** math func
 */
 long			ft_abs(int nb);
-int				ft_pwr(int nb, int power);
+unsigned long 	ft_pwr(int nb, int power);
 long long		ft_lpwr(long long nb, int pwr);
 int				ft_sqrt(int n);
 /*
@@ -130,6 +130,8 @@ void			ft_putstr_fd(char const *s, int fd);
 void			ft_putstr(char const *str);
 void			ft_puttab_fd(char **tab, int fd);
 void			ft_puttab(char **tab);
+void			ft_putnbrendl(int n);
+void			ft_putnbrendl_fd(int n, int fd);
 /*
 ** str func
 */

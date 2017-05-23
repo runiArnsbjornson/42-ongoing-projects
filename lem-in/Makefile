@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/19 15:05:56 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/23 17:58:32 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,13 @@ NAME = lem-in
 
 SRC_DIR = srcs/
 
-FILE = main.c
+FILE = main.c pathfinding.c
 
 SRC = $(addprefix $(SRC_DIR), $(FILE)) 
 
 OBJ = $(SRC:.c=.o)
+
+HEAD = includes/lem_in.h
 
 INCL = -I includes -I libft/libft
 
@@ -28,9 +30,9 @@ CFLAGS = -Wall -Wextra -Weverything -Werror -fdiagnostics-show-option -pedantic
 
 all: $(NAME)
 
-%.o: %.c
+%.o: %.c $(HEAD)
 	@gcc -g -o $@ -c $< $(CFLAGS) $(INCL)
-	@echo "\033[K\033[34mCompiling\033[00m : \033[32m$^\033[00m"
+	@echo "\033[K\033[34mCompiling\033[00m : \033[32m$<\033[00m"
 
 $(NAME): $(OBJ)
 	@cd libft && make
@@ -49,7 +51,8 @@ fclean: clean
 mclean: all clean
 	@echo "\033[K\033[33mMake && clean \033[01mDone\033[0m"
 
-re: fclean all
+re: fclean
+	@make
 	@echo "\033[32mRe\033[01m Done\033[0m"
 
 .PHONY: all clean fclean mclean re

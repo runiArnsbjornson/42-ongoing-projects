@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwr.c                                           :+:      :+:    :+:   */
+/*   ft_putnbrendl_fd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/16 15:23:50 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/23 10:01:53 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/05/23 11:03:31 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/05/23 11:05:38 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned long	ft_pwr(int nb, int power)
+void	ft_putnbrendl_fd(int n, int fd)
 {
-	unsigned long	n;
-
-	if (power < 0)
-		return (0);
-	n = (unsigned long)nb;
-	if (power == 0)
-		return (1);
-	if (power > 0)
-	{
-		n = ft_pwr(nb, power - 1);
-		n = (unsigned long)nb * n;
-	}
-	return (n);
+	ft_putnbr_fd(n, fd);
+	write(1, "\n", 1);
 }
