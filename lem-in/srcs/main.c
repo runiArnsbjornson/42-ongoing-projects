@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/23 16:59:47 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/24 18:58:54 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	display_matrix(t_data *data, int i)
 		pos.y = 0;
 		while (pos.y < data->rooms)
 		{
-			ft_printf("%d\t", data->paths[pos.x][pos.y]);
+			ft_printf("%d\t", data->p[pos.x][pos.y]);
 			pos.y++;
 		}
 		ft_printf("\n");
@@ -87,13 +87,18 @@ void	display(t_data *data, int type)
 	if (type > 1)
 		display_rooms(data, tmp, 0);
 	if (type > 2)
-		display_matrix(data,  0);
+		display_matrix(data, 0);
 }
 
 void	ft_error(t_data *data, char *str)
 {
 	ft_put_error(str);
-	//ft_free(data);
+	if (data->r != NULL)
+		ft_lstfree(&data->r);
+	if (data->p != NULL)
+		ft_inttabdel(data->p, data->rooms);
+	if (data->s != NULL)
+		ft_inttabdel(data->s, data->rooms);
 	data = NULL;
 	exit(0);
 }
@@ -102,7 +107,7 @@ void	get_ants_nbr(t_data *data)
 {
 	char	*line;
 
-	if (ft_gnl(0, &line) > 0)
+	if (get_next_line(0, &line) > 0)
 	{
 		if (!line)
 			ft_error(data, "Bad ants input");
@@ -122,12 +127,12 @@ void	check_path(t_data *data, t_list *tmp, char *r1, char *r2)
 	check = 0;
 	while (tmp)
 	{
-		if (ft_strcmp(r1 , tmp->content) == 0)
+		if (ft_strcmp(r1, tmp->content) == 0)
 		{
 			data->y = i;
 			check++;
 		}
-		if (ft_strcmp(r2 , tmp->content) == 0)
+		if (ft_strcmp(r2, tmp->content) == 0)
 		{
 			data->x = i;
 			check++;
@@ -142,33 +147,24 @@ void	check_path(t_data *data, t_list *tmp, char *r1, char *r2)
 void	get_path(t_data *data, char *line)
 {
 	char		*r1;
-	int			i;
 	t_list		*tmp;
 	static int	p = 1;
 
-	i = -1;
 	r1 = ft_strccpy(line, '-');
-	if (data->paths == 0)
-	{
-		if (!(data->paths = (int **)ft_memalloc(sizeof(int *) * (unsigned long)(data->rooms + 1))))
+	if (data->p == 0)
+		if (!(data->p = ft_inttab((size_t)data->rooms, (size_t)data->rooms)))
 			ft_error(data, "Error malloc");
-		while (++i < data->rooms)
-		{
-			if (!(data->paths[i] = (int *)ft_memalloc(sizeof(int) * (unsigned long)(data->rooms + 1))))
-				ft_error(data, "Error malloc");
-		}
-	}
 	tmp = data->r;
 	check_path(data, tmp, r1, ft_strchr(line, '-') + 1);
-	data->paths[data->y][data->x] = p;
-	data->paths[data->x][data->y] = p++;
+	data->p[data->y][data->x] = p;
+	data->p[data->x][data->y] = p++;
 	ft_strdel(&r1);
 }
 
 void	get_room(t_data *data, char *line)
 {
-	char *r;
-	t_list *tmp;
+	char	*r;
+	t_list	*tmp;
 
 	r = ft_strccpy(line, ' ');
 	if (!(tmp = ft_lstnew(r, ft_strlen(r + 1))))
@@ -188,7 +184,6 @@ void	get_type(t_data *data, char *line)
 		data->start = 0;
 	if (ft_strcmp(line + 2, "end") == 0 && data->end == -1)
 		data->end = 0;
-	ft_strdel(&line);
 }
 
 void	parser(t_data *data)
@@ -196,13 +191,13 @@ void	parser(t_data *data)
 	char *line;
 
 	get_ants_nbr(data);
-	while (ft_gnl(0, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
 		if (!*line)
 			ft_error(data, "Bad input");
 		if (ft_strncmp(line, "##", 2) == 0)
 			get_type(data, line);
-		else if (ft_strncmp(line, "#", 1) == 0)
+		else if (*line == '#')
 			ft_putendl_fd(line + 1, 2);
 		else
 		{
@@ -211,14 +206,17 @@ void	parser(t_data *data)
 			if (ft_bool_strchr(line, '-'))
 				get_path(data, line);
 		}
+		ft_strdel(&line);
 	}
-	ft_strdel(&line);
 }
 
 void	init_data(t_data *data)
 {
 	data->r = NULL;
-	data->paths = NULL;
+	data->p = NULL;
+	data->s = NULL;
+	data->next = NULL;
+	data->way = NULL;
 	data->start = -1;
 	data->end = -1;
 	data->ants = 0;
@@ -238,21 +236,21 @@ int		graph_opt(char *av)
 	int graph;
 
 	graph = 0;
-	if (ft_strcmp(av, "-1") == 0)
+	if (ft_strcmp(av, "-d") == 0)
 		graph = 1;
-	else if (ft_strcmp(av, "-2") == 0)
+	else if (ft_strcmp(av, "-r") == 0)
 		graph = 2;
-	else if (ft_strcmp(av, "-g") == 0)
+	else if (ft_strcmp(av, "-a") == 0)
 		graph = 5;
 	else
-		ft_error(NULL, "usage: ./lem-in [-g | -1 | -2]");
+		ft_error(NULL, "usage: ./lem-in [-d | -r | -a] < \033[04mfile\033[0m");
 	return (graph);
 }
 
 int		main(int ac, char **av)
 {
 	t_data	data;
-	int	graph;
+	int		graph;
 
 	graph = 0;
 	if (ac != 1)
@@ -262,6 +260,6 @@ int		main(int ac, char **av)
 	check_data(&data);
 	if (graph)
 		display(&data, graph);
-	pathfinding(&data);
+	//pathfinding(&data);
 	return (0);
 }

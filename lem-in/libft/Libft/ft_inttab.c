@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_inttab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/06 18:34:25 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/24 19:01:29 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/05/24 15:34:48 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/05/24 15:35:47 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+int	**ft_inttab(size_t col, size_t line)
 {
-	t_list	*new;
 	size_t	i;
+	int	**tab;
 
-	if (!(new = (t_list *)ft_memalloc(sizeof(t_list))))
+	i = 0;
+	if (!line || !(tab = ft_memalloc(sizeof(int *) * (line + 1))) || !col)
 		return (NULL);
-	if (content == NULL)
+	while (i < line)
 	{
-		new->content = NULL;
-		new->content_size = 0;
+		tab[i] = ft_memalloc(sizeof(int) * (col + 1));
+		i++;
 	}
-	else
-	{
-		new->content = ft_memalloc(content_size + 1);
-		i = 0;
-		while (i <= content_size)
-		{
-			((char *)(new->content))[i] = ((char *)(uintptr_t)content)[i];
-			i++;
-		}
-		new->content_size = content_size;
-	}
-	new->next = NULL;
-	return (new);
+	tab[i] = NULL;
+	return (tab);
 }

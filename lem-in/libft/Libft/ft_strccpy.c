@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 09:55:33 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/19 13:39:01 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/24 11:53:28 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strccpy(const char *src, int c)
 		i = 0;
 		while (src[i] != (unsigned char)c)
 			i++;
-		if (!(ret = malloc(sizeof(char) * (i + 1))))
+		if (!(ret = (char *)ft_memalloc(sizeof(char) * (i + 1))))
 			return (NULL);
 		j = 0;
 		while (j < i)

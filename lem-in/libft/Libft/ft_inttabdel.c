@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tab.c                                           :+:      :+:    :+:   */
+/*   ft_inttabdel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/16 16:39:28 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/24 15:34:24 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/05/24 16:25:57 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/05/24 16:34:19 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_tab(size_t col, size_t line)
+void	ft_inttabdel(int **tab, int size)
 {
-	size_t	i;
-	char	**tab;
+	int i;
 
-	i = 0;
-	if (!line || !(tab = ft_memalloc(sizeof(char *) * (line + 1))) || !col)
-		return (NULL);
-	while (i < line)
+	if (tab != NULL)
 	{
-		tab[i] = ft_memalloc(sizeof(char) * (col + 1));
-		i++;
+		i = -1;
+		while (++i < size)
+			free(tab[i]);
+		free(tab);
 	}
-	tab[i] = NULL;
-	return (tab);
 }
