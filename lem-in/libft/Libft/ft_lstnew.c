@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:34:25 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/30 17:37:51 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/30 17:47:10 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	{
 		if (!(new->content = ft_memalloc(content_size)))
 			return (NULL);
-		ft_bzero(new->content, content_size);
 		ft_memcpy(new->content, content, content_size);
 		new->content_size = content_size;
 	}

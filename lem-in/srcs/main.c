@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/30 16:47:51 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/30 17:59:59 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,10 @@ void	get_room(t_data *data, char *line)
 	t_list	*tmp;
 
 	r = ft_strccpy(line, 32);
-	printf("[[ %s ]]\n", r);
+	ft_printf("[[ %s ]]\n", r);
 	if ((tmp = ft_lstnew(r, ft_strlen(r))) == NULL)
 		ft_error(data, "Error malloc");
-	printf("<{ %s }>\n", tmp->content);
+	ft_printf("<{ %s }>\n", tmp->content);
 	check_rooms(data, r);
 	ft_lstaddend(&data->r, tmp);
 	data->rooms++;
