@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/24 19:02:55 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/30 16:24:22 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void			display_rooms(t_data *data, t_list *tmp, int i);
 void			display_data(t_data *data, t_list *tmp, int i);
 int				graph_opt(char *av);
 void			pathfinding(t_data *data);
+void	check_rooms(t_data *data, char *r);
 
 #endif

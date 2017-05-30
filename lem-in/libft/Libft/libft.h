@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/24 16:34:29 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/30 13:24:57 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int				ft_isupper(int c);
 */
 void			ft_lstfree(t_list **alst);
 void			ft_lstadd(t_list **alst, t_list *new);
-int				ft_lstaddend(t_list **alst, t_list *new);
+void			ft_lstaddend(t_list **alst, t_list *new);
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
@@ -187,6 +187,7 @@ int				ft_wcsnlen(const wchar_t *s, size_t n);
 /*
 **	read func
 */
+int				gnl(const int fd, char **line);
 int				ft_gnl(const int fd, char **line);
 int				get_next_line(const int fd, char **line);
 

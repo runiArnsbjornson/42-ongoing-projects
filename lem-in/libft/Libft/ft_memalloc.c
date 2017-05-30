@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:13:00 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/24 17:47:53 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/05/30 14:51:12 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,13 @@
 
 void	*ft_memalloc(size_t size)
 {
-	size_t	i;
-	void	*ret;
+	unsigned char *ret;
 
 	if (size == 0)
 		return (NULL);
-	if ((ret = malloc(size)) == NULL)
+	if (!(ret = malloc(size)))
 		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		((char *)ret)[i] = 0;
-		i++;
-	}
-	return (ret);
+	while (size--)
+		((char *)ret)[size] = 0;
+	return ((void *)ret);
 }

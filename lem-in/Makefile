@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/24 15:39:55 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/30 12:24:55 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ = $(SRC:.c=.o)
 
 HEAD = includes/lem_in.h
 
-INCL = -I includes -I libft/libft
+INCL = -I includes -I libft/includes -I libft/Libft
 
 LIBS = -Llibft -lftprintf
 

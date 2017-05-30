@@ -6,17 +6,18 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/24 16:28:55 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/05/30 12:23:56 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-INCL = .
+INCL = libft.h
 
 CFLAGS = -Wall -Wunused -Wextra -Werror -Weverything -fdiagnostics-show-option
 
-SRC = ft_abs.c \
+SRC = gnl.c \
+	ft_abs.c \
 	ft_atoi.c \
 	ft_bool_strchr.c \
 	ft_bzero.c \
@@ -120,8 +121,8 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-%.o: %.c
-	@echo "\033[K\033[34mLibft :\033[0m [ Compiling :\033[33m $^\033[0m]\033[1A"
+%.o: %.c $(INCL)
+	@echo "\033[K\033[34mLibft :\033[0m [ Compiling :\033[33m $<\033[0m]\033[1A"
 	@gcc -g -o $@ -c $< $(CFLAGS) -I $(INCL)
 
 $(NAME): $(OBJ)
