@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_inttabdel.c                                     :+:      :+:    :+:   */
+/*   ft_putinttab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/24 16:25:57 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 13:34:53 by jdebladi         ###   ########.fr       */
+/*   Created: 2017/06/01 13:15:18 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/06/01 17:34:02 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_inttabdel(int **tab, int size)
+void	ft_putinttab(int **tab, int col)
 {
+	int x;
+	int y;
 	int i;
 
-	if (tab != NULL)
+	i = -1;
+	ft_printf("\t");
+	while (++i < col)
+		ft_printf(MAG "%d%s", i, i == col - 1 ? "\n" RES : "\t");
+	i = 0;
+	y = -1;
+	while (tab[++y] != NULL)
 	{
-		i = -1;
-		while (++i < size)
-		{
-			if (tab[i] != NULL)
-				free(tab[i]);
-		}
-		free(tab);
+		x = -1;
+		ft_printf(MAG "%d\t" RES, i++);
+		while (++x < col)
+			ft_printf("%d\t", tab[y][x]);
+		ft_printf("\n");
 	}
 }

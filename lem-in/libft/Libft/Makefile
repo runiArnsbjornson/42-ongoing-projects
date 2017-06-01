@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/30 12:23:56 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/06/01 13:35:33 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC = gnl.c \
 	ft_lstdelone.c \
 	ft_lstfree.c \
 	ft_lstiter.c \
+	ft_lstlen.c \
 	ft_lstmap.c \
 	ft_lstnew.c \
 	ft_memalloc.c \
@@ -61,6 +62,7 @@ SRC = gnl.c \
 	ft_putchar_fd.c \
 	ft_putendl.c \
 	ft_putendl_fd.c \
+	ft_putinttab.c \
 	ft_putnbrendl.c \
 	ft_putnbrendl_fd.c \
 	ft_putnbr.c \

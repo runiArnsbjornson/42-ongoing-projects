@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/05/30 12:24:55 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/06/01 11:08:14 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = lem-in
 
 SRC_DIR = srcs/
 
-FILE = main.c 
+FILE = main.c pathfinding.c
 
 SRC = $(addprefix $(SRC_DIR), $(FILE)) 
 

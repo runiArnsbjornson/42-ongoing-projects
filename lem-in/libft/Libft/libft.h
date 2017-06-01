@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/30 13:24:57 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/01 17:34:31 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int				ft_isupper(int c);
 /*
 ** list func
 */
+int				ft_lstlen(t_list **alst);
 void			ft_lstfree(t_list **alst);
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstaddend(t_list **alst, t_list *new);
@@ -133,6 +134,7 @@ void			ft_puttab_fd(char **tab, int fd);
 void			ft_puttab(char **tab);
 void			ft_putnbrendl(int n);
 void			ft_putnbrendl_fd(int n, int fd);
+void			ft_putinttab(int **tab, int col);
 /*
 ** str func
 */
@@ -171,7 +173,7 @@ char			**ft_strsplit(char const *s, char c);
 char			*ft_strstr(const char *big, const char *little);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
-int				**ft_inttab(size_t col, size_t line);
+int				**ft_inttab(int col, int line);
 void			ft_inttabdel(int **tab, int size);
 char			**ft_tab(size_t col, size_t line);
 void			ft_tabdel(char **tab);

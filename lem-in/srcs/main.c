@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/30 17:59:59 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/01 17:34:15 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,6 @@ void	display_rooms(t_data *data, t_list *tmp, int i)
 		i++;
 	}
 	data->r = tmp;
-}
-
-void	display_matrix(t_data *data, int i)
-{
-	t_pos pos;
-
-	ft_printf(MAG "Matrix of paths :\n\t");
-	i = -1;
-	while (++i < data->rooms)
-		ft_printf("%d%s", i, i == data->rooms - 1 ? "\n" RES : "\t");
-	pos.x = 0;
-	i = 0;
-	while (pos.x < data->rooms)
-	{
-		ft_printf(MAG "%d\t" RES, i++);
-		pos.y = -1;
-		while (++pos.y < data->rooms)
-			ft_printf("%d\t", data->p[pos.x][pos.y]);
-		ft_printf("\n");
-		pos.x++;
-	}
 }
 
 void	display_data(t_data *data, t_list *tmp, int i)
@@ -82,7 +61,10 @@ void	display(t_data *data, int type)
 	if (type > 1)
 		display_rooms(data, tmp, 0);
 	if (type > 2)
-		display_matrix(data, 0);
+	{
+		ft_printf(MAG "Matrix of paths :\n" RES);
+		ft_putinttab(data->p, data->rooms);
+	}
 }
 
 void	ft_free(t_data *data)
@@ -93,6 +75,14 @@ void	ft_free(t_data *data)
 		ft_inttabdel(data->p, data->rooms);
 	if (data->s != NULL)
 		ft_inttabdel(data->s, data->rooms);
+	if (data->next != NULL)
+		free(data->next);
+	if (data->way != NULL)
+		free(data->way);
+	if (data->bway != NULL)
+		free(data->bway);
+	if (data->best_way != NULL)
+		free(data->best_way);
 	data = NULL;
 }
 
@@ -151,8 +141,8 @@ void	get_path(t_data *data, char *line)
 	static int	p = 1;
 
 	r1 = ft_strccpy(line, '-');
-	if (data->p == 0)
-		if (!(data->p = ft_inttab((size_t)data->rooms, (size_t)data->rooms)))
+	if (data->p == NULL)
+		if (!(data->p = ft_inttab(data->rooms, data->rooms)))
 			ft_error(data, "Error malloc");
 	tmp = data->r;
 	check_path(data, tmp, r1, ft_strchr(line, '-') + 1);
@@ -180,11 +170,9 @@ void	get_room(t_data *data, char *line)
 	t_list	*tmp;
 
 	r = ft_strccpy(line, 32);
-	ft_printf("[[ %s ]]\n", r);
+	check_rooms(data, r);
 	if ((tmp = ft_lstnew(r, ft_strlen(r))) == NULL)
 		ft_error(data, "Error malloc");
-	ft_printf("<{ %s }>\n", tmp->content);
-	check_rooms(data, r);
 	ft_lstaddend(&data->r, tmp);
 	data->rooms++;
 	if (data->start == 0)
@@ -212,7 +200,7 @@ void	parser(t_data *data)
 	while (gnl(0, &line) > 0)
 	{
 		if (!*line)
-			ft_error(data, "Bad input");
+			break ;
 		if (ft_strncmp(line, "##", 2) == 0)
 			get_type(data, line);
 		else if (*line == '#')
@@ -237,10 +225,13 @@ void	init_data(t_data *data)
 	data->s = NULL;
 	data->next = NULL;
 	data->way = NULL;
+	data->bway = NULL;
+	data->best_way = NULL;
 	data->start = -1;
 	data->end = -1;
 	data->ants = 0;
 	data->rooms = 0;
+	data->len = 0;
 	data->x = 0;
 	data->y = 0;
 }
@@ -288,7 +279,8 @@ int		main(int ac, char **av)
 	check_data(&data);
 	if (graph)
 		display(&data, graph);
-	//pathfinding(&data);
+	pathfinding(&data);
+	display_solution(&data);
 	ft_free(&data);
 	return (0);
 }

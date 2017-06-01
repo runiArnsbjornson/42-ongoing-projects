@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/30 16:24:22 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/01 17:01:37 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@ typedef struct	s_path
 typedef struct	s_data
 {
 	t_list	*r;
-	char	*line;
-	int		start;
-	int		end;
-	int		ants;
-	int		rooms;
-	int		x;
-	int		y;
 	int		**p;
 	int		**s;
 	int		*next;
 	int		*way;
+	int		*bway;
+	int		*best_way;
+	int		start;
+	int		end;
+	int		ants;
+	int		rooms;
+	int		len;
+	int		x;
+	int		y;
+	int		pad;
 }				t_data;
 
 void			ft_free(t_data *data);
@@ -62,7 +65,16 @@ void			display_matrix(t_data *data, int i);
 void			display_rooms(t_data *data, t_list *tmp, int i);
 void			display_data(t_data *data, t_list *tmp, int i);
 int				graph_opt(char *av);
+/*
+**
+*/
 void			pathfinding(t_data *data);
-void	check_rooms(t_data *data, char *r);
+void			check_rooms(t_data *data, char *r);
+int				realloc_next(t_data *data, int turn);
+int				search_room(t_data *data, int ref);
+int				shorten_best_way(t_data *data);
+int				get_best_way(t_data *data);
+int				get_ways(t_data *data, int turn);
+void			display_solution(t_data *data);
 
 #endif
