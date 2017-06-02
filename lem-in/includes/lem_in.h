@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 17:01:37 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/02 16:55:58 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include <errno.h>
 # include <stdio.h>
 # include <limits.h>
+
+# define DATA 00000001
+# define ROOM 00000010
+# define PATH 00000100
+# define SOLV 00001000
+# define BEST 00010000
+# define ALL 00100000
 
 typedef struct	s_pos
 {
@@ -35,6 +42,7 @@ typedef struct	s_data
 	t_list	*r;
 	int		**p;
 	int		**s;
+	int		**t;
 	int		*next;
 	int		*way;
 	int		*bway;
@@ -64,7 +72,10 @@ void			check_data(t_data *data);
 void			display_matrix(t_data *data, int i);
 void			display_rooms(t_data *data, t_list *tmp, int i);
 void			display_data(t_data *data, t_list *tmp, int i);
-int				graph_opt(char *av);
+int				graph_opt(char *av, int graph);
+int				check_opt(const char c);
+void			bad_arg(void) __attribute__((noreturn));
+
 /*
 **
 */
@@ -74,7 +85,8 @@ int				realloc_next(t_data *data, int turn);
 int				search_room(t_data *data, int ref);
 int				shorten_best_way(t_data *data);
 int				get_best_way(t_data *data);
-int				get_ways(t_data *data, int turn);
+int				get_ways(t_data *data, int room, int turn, int try);
 void			display_solution(t_data *data);
+void			reset_matrix(t_data *data, int room);
 
 #endif

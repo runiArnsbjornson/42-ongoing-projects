@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 16:45:43 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 17:35:52 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/02 17:53:42 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,78 +88,77 @@ int		shorten_best_way(t_data *data)
 	return (0);
 }
 
-int		get_best_way(t_data *data)
-{
-	int i;
-	int search;
+// int		get_best_way(t_data *data)
+// {
 
-	ft_printf("get_best_way\n");
-	i = 0;
-	search = data->end - 1;
-	if (!(data->bway = (int *)ft_memalloc(sizeof(int) * (unsigned long)(data->rooms + 1))))
-		ft_error(data, "Error malloc");
-	while (search != - 1)
+// }
+
+void	reset_matrix(t_data *data, int room)
+{
+	t_pos pos;
+
+	pos.x = data->rooms;
+	while (pos.x-- > 0)
 	{
-		if (search != 0 && search != data->start - 1)
-			data->bway[i++] = search;
-		search = data->way[search];
-		if (search == 0)
+		if (data->p[room][pos.x] != 0)
 		{
-			data->bway[i++] = data->start - 1;
+			data->p[room][pos.x] = 0;
+			data->p[pos.x][room] = 0;
 			break ;
 		}
 	}
-	data->len = i;
-	return (shorten_best_way(data));
-}
-
-int		get_ways(t_data *data, int turn)
-{
-	int room;
-	t_pos pos;
-
-	ft_printf("get_ways\n");
-	room = 0;
 	pos.x = -1;
-	while (data->next[++pos.x] > 0)
+	while (++pos.x < data->rooms)
 	{
 		pos.y = -1;
 		while (++pos.y < data->rooms)
+			data->p[pos.y][pos.x] = (int)ft_abs(data->p[pos.y][pos.x]);
+	}
+}
+
+int		get_ways(t_data *data, int room, int turn, int try)
+{
+	int pos;
+
+	pos = -1;
+	if (data->p[room][data->end - 1] > 0)
+	{
+		data->s[try][turn] = data->end - 1;
+		return (1);
+	}
+	else
+	{
+		while (++pos < data->rooms)
 		{
-			if (data->p[data->next[pos.x]][pos.y] > 0)
+			if (data->p[room][pos] > 0)
 			{
-				data->p[data->next[pos.x]][pos.y] *= -1;
-				data->s[turn][room] = search_room(data, data->p[data->next[pos.x]][pos.y]);
-				if (data->p[data->next[pos.x]][pos.y] == data->start)
-					data->way[data->start - 1] = -1;
-				data->way[data->s[turn][room]] = data->next[pos.x];
-				if (data->s[turn][room++] == data->end - 1)
+				data->p[room][pos] *= -1;
+				data->p[pos][room] *= -1;
+				data->s[try][turn++] = pos;
+				if (pos == (data->end - 1))
 					return (1);
+				else
+					return (get_ways(data, pos, turn, try));
 			}
+			if (turn > data->rooms)
+				ft_error(data, "No solution");
 		}
 	}
-	if (realloc_next(data, turn))
-		return (1);
+	reset_matrix(data, room);
 	return (0);
 }
 
 void	pathfinding(t_data *data)
 {
-	int turn;
+	int try;
 
-	turn = 0;
-	if (!(data->s = ft_inttab(data->rooms, data->rooms)))
+	if (!(data->s = ft_inttab(data->rooms, data->rooms)) ||
+		!(data->next = (int *)ft_memalloc(sizeof(int) * ((unsigned long)data->rooms + 1))))
 		ft_error(data, "Error malloc");
-	if (!(data->way = (int *)ft_memalloc(sizeof(int) * ((unsigned long)data->rooms + 1))))
-		ft_error(data, "Error malloc");
-	if (!(data->next = (int *)ft_memalloc(sizeof(int) * ((unsigned long)data->rooms + 1))))
-		ft_error(data, "Error malloc");
-	ft_putinttab(data->way, data->rooms);
-	ft_putinttab(data->next, data->rooms);
-	ft_printf("data->rooms = %d\ndata->start = %d\ndata->end = %d\n", data->rooms, data->start, data->end);
-	if (get_ways(data, turn))
-		{
-			get_best_way(data);
-			return ;
-		}
+	try = -1;
+	while (++try < data->rooms)
+	{
+		data->s[try][0] = data->start - 1;
+		get_ways(data, data->start - 1, 1, try);
+	}
 }

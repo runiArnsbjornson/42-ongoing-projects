@@ -1,6 +1,6 @@
 1
 ##start
-caca 1 0
+0 1 0
 ##end
-prout 2 0
-caca-prout
+1 2 0
+0-1

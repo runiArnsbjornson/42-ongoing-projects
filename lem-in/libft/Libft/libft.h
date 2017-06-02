@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 17:34:31 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/02 15:17:15 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define YEL "\033[33m"
 # define BLU "\033[34m"
 # define MAG "\033[35m"
-# define CYN "\033[36m"
+# define CYA "\033[36m"
 # define WHT "\033[37m"
 # define BBLK "\033[40m"
 # define BRED "\033[41m"

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 13:15:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 17:34:02 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/02 10:12:56 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_putinttab(int **tab, int col)
 		x = -1;
 		ft_printf(MAG "%d\t" RES, i++);
 		while (++x < col)
-			ft_printf("%d\t", tab[y][x]);
-		ft_printf("\n");
+			ft_printf("%d%c", tab[y][x], x == col - 1 ? '\n' : '\t');
 	}
 }

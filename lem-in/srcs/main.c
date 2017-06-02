@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 17:34:15 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/02 17:20:30 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	display_rooms(t_data *data, t_list *tmp, int i)
 
 void	display_data(t_data *data, t_list *tmp, int i)
 {
-	ft_printf("%s\nThere are %d rooms\n", BLU ">> Data parsed <<" RES, data->rooms);
+	ft_printf("%s\nThere are %d rooms\n", BLU "Data parsed :" RES, data->rooms);
 	while (data->r && i < data->start - 1)
 	{
 		data->r = data->r->next;
@@ -56,14 +56,23 @@ void	display(t_data *data, int type)
 	t_list *tmp;
 
 	tmp = data->r;
-	if (type > 0)
+	if (!!(type & (DATA << 0)) || (!!(type & (ALL << 0))))
 		display_data(data, tmp, 0);
-	if (type > 1)
+	if (!!(type & (ROOM << 0)) || (!!(type & (ALL << 0))))
 		display_rooms(data, tmp, 0);
-	if (type > 2)
+	if (!!(type & (PATH << 0)) || (!!(type & (ALL << 0))))
 	{
 		ft_printf(MAG "Matrix of paths :\n" RES);
-		ft_putinttab(data->p, data->rooms);
+		ft_putinttab(data->t, data->rooms);
+	}
+	if (!!(type & (SOLV << 0)) || (!!(type & (ALL << 0))))
+	{
+		ft_printf(YEL "Matrix of solution(s) :\n" RES);
+		ft_putinttab(data->s, data->rooms);
+	}
+	if (!!(type & (BEST << 0)) || (!!(type & (ALL << 0))))
+	{
+		// ft_printf();
 	}
 }
 
@@ -75,6 +84,8 @@ void	ft_free(t_data *data)
 		ft_inttabdel(data->p, data->rooms);
 	if (data->s != NULL)
 		ft_inttabdel(data->s, data->rooms);
+	if (data->t != NULL)
+		ft_inttabdel(data->t, data->rooms);
 	if (data->next != NULL)
 		free(data->next);
 	if (data->way != NULL)
@@ -142,10 +153,13 @@ void	get_path(t_data *data, char *line)
 
 	r1 = ft_strccpy(line, '-');
 	if (data->p == NULL)
-		if (!(data->p = ft_inttab(data->rooms, data->rooms)))
+		if (!(data->p = ft_inttab(data->rooms, data->rooms)) ||
+		!(data->t = ft_inttab(data->rooms, data->rooms)))
 			ft_error(data, "Error malloc");
 	tmp = data->r;
 	check_path(data, tmp, r1, ft_strchr(line, '-') + 1);
+	data->t[data->y][data->x] = p;
+	data->t[data->x][data->y] = p;
 	data->p[data->y][data->x] = p;
 	data->p[data->x][data->y] = p++;
 	ft_strdel(&r1);
@@ -223,6 +237,7 @@ void	init_data(t_data *data)
 	data->r = NULL;
 	data->p = NULL;
 	data->s = NULL;
+	data->t = NULL;
 	data->next = NULL;
 	data->way = NULL;
 	data->bway = NULL;
@@ -242,23 +257,55 @@ void	check_data(t_data *data)
 		ft_error(data, "Error with start/end");
 }
 
-int		graph_opt(char *av)
+int		check_opt(const char c)
 {
-	int graph;
+	const char	flag[6] = "drpsba";
+	int			i;
 
-	graph = 0;
-	if (ft_strcmp(av, "-d") == 0)
-		graph = 1;
-	else if (ft_strcmp(av, "-r") == 0)
-		graph = 2;
-	else if (ft_strcmp(av, "-a") == 0)
-		graph = 5;
-	else
+	i = -1;
+	while (++i < 6)
 	{
-		ft_put_error("usage: ./lem-in [-d | -r | -a] < \033[04mfile\033[0m");
-		exit(0);
+		if (c == flag[i])
+			return (1);
 	}
-	return (graph);
+	return (0);
+}
+
+void	bad_arg(void)
+{
+	ft_putendl_fd("usage: ./lem-in [-drpsba] < \033[04mfile\033[0m", 2);
+	ft_putendl_fd("-d\tDisplay the data parsed", 2);
+	ft_putendl_fd("-r\tDisplay the list of rooms", 2);
+	ft_putendl_fd("-p\tDisplay the matrix of paths", 2);
+	ft_putendl_fd("-s\tDisplay the matrix of solutions", 2);
+	ft_putendl_fd("-b\tDisplay the best solution", 2);
+	ft_putendl_fd("-a\tAll of the options above", 2);
+	exit(0);
+}
+
+int		graph_opt(char *av, int graph)
+{
+	int i;
+
+	if (av[0] == '-')
+	{
+		i = 1;
+		while (av[i])
+		{
+			if (check_opt(av[i]) == 0)
+				bad_arg();
+			graph = av[i] == 'd' ? graph | DATA : graph;
+			graph = av[i] == 'r' ? graph | ROOM : graph;
+			graph = av[i] == 'p' ? graph | PATH : graph;
+			graph = av[i] == 's' ? graph | SOLV : graph;
+			graph = av[i] == 'b' ? graph | BEST : graph;
+			graph = av[i] == 'a' ? graph | ALL : graph;
+			i++;
+		}
+		return (graph);
+	}
+	else
+		bad_arg();
 }
 
 int		main(int ac, char **av)
@@ -267,19 +314,16 @@ int		main(int ac, char **av)
 	int		graph;
 	int i;
 
-	i = 1;
+	i = 0;
 	graph = 0;
-	while (i < ac)
-	{
-		graph = graph_opt(av[i]);
-		i++;
-	}
+	while (++i < ac)
+		graph = graph_opt(av[i], 0);
 	init_data(&data);
 	parser(&data);
 	check_data(&data);
+	pathfinding(&data);
 	if (graph)
 		display(&data, graph);
-	pathfinding(&data);
 	display_solution(&data);
 	ft_free(&data);
 	return (0);

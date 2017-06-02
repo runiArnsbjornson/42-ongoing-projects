@@ -1,10 +1,12 @@
-1
-caca 1 0
-##end
-<<pipi 5 0
+2
 ##start
->>popo 9 0
-prout 13 0
-caca->>popo
->>popo-prout
-prout-<<pipi
+0 1 0
+1 1 1
+2 0 2
+3 2 2
+##end
+4 1 3
+0-1
+1-2
+1-3
+3-4
