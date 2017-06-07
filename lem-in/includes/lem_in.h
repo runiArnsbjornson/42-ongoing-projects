@@ -43,10 +43,7 @@ typedef struct	s_data
 	int		**p;
 	int		**s;
 	int		**t;
-	int		*next;
-	int		*way;
-	int		*bway;
-	int		*best_way;
+	int		*best;
 	int		start;
 	int		end;
 	int		ants;
@@ -57,36 +54,33 @@ typedef struct	s_data
 	int		pad;
 }				t_data;
 
-void			ft_free(t_data *data);
-void			display(t_data *data, int type);
-void			ft_error(t_data *data, char *str) __attribute__((noreturn));
-void			get_ants_nbr(t_data *data);
-void			get_path(t_data *data, char *line);
-void			get_room(t_data *data, char *line);
-void			clean_type(t_data *data);
-void			parser(t_data *data);
-void			init_data(t_data *data);
-void			get_type(t_data *data, char *line);
-void			check_path(t_data *data, t_list *tmp, char *r1, char *r2);
-void			check_data(t_data *data);
-void			display_matrix(t_data *data, int i);
 void			display_rooms(t_data *data, t_list *tmp, int i);
 void			display_data(t_data *data, t_list *tmp, int i);
-int				graph_opt(char *av, int graph);
+void			display_best(t_data *data, t_list *tmp, int i);
+void			display(t_data *data, int type);
+void			ft_free(t_data *data);
+void			ft_error(t_data *data, char *str) __attribute__((noreturn));
+void			get_ants_nbr(t_data *data);
+void			check_path(t_data *data, t_list *tmp, char *r1, char *r2);
+void			get_path(t_data *data, char *line);
+void			check_rooms(t_data *data, char *r);
+void			get_room(t_data *data, char *line);
+void			get_type(t_data *data, char *line);
+void			parser(t_data *data);
+void			init_data(t_data *data);
+void			check_data(t_data *data);
 int				check_opt(const char c);
 void			bad_arg(void) __attribute__((noreturn));
-
+int				graph_opt(char *av, int graph);
 /*
 **
 */
-void			pathfinding(t_data *data);
-void			check_rooms(t_data *data, char *r);
-int				realloc_next(t_data *data, int turn);
-int				search_room(t_data *data, int ref);
-int				shorten_best_way(t_data *data);
-int				get_best_way(t_data *data);
-int				get_ways(t_data *data, int room, int turn, int try);
 void			display_solution(t_data *data);
+void			shortening_best_way(t_data *data);
+void			get_best_way(t_data *data);
 void			reset_matrix(t_data *data, int room);
+int				hacking_way(t_data *data, int room, int turn, int try);
+int				get_ways(t_data *data, int room, int turn, int try);
+void			pathfinding(t_data *data);
 
 #endif

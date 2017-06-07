@@ -20,7 +20,7 @@ void	display_solution(t_data *data)
 
 	ft_printf("display_solution\n");
 	i = data->rooms;
-	if (!data->best_way || data->best_way[0] != data->end - 1)
+	if (!data->best || data->best[0] != data->end - 1)
 		ft_error(data, "No solution");
 	i = data->rooms;
 	while (i-- > 0)
@@ -29,7 +29,7 @@ void	display_solution(t_data *data)
 		tmp = data->r;
 		while (tmp != NULL)
 		{
-			if (data->best_way[i] > 0 && n + 1 == data->best_way[i])
+			if (data->best[i] > 0 && n + 1 == data->best[i])
 				ft_printf("%s -> ", tmp->content);
 			n++;
 			tmp = tmp->next;
@@ -38,60 +38,48 @@ void	display_solution(t_data *data)
 	ft_printf("shortest way is %d long\n", data->len);
 }
 
-int		realloc_next(t_data *data, int turn)
+void	shortening_best_way(t_data *data)
 {
-	int i;
+	t_pos i;
 
-	ft_printf("realloc_next\n");
-	free(data->next);
-	if (!(data->next = (int*)ft_memalloc(sizeof(int) * (unsigned long)(data->rooms + 1))))
-		return (1);
-	i = -1;
-	while (data->s[turn][++i])
-		data->next[i] = data->s[turn][i];
-	return (0);
-}
-
-int		search_room(t_data *data, int ref)
-{
-	t_pos pos;
-
-	ft_printf("search_room\n");
-	pos.x = 0;
-	while (++pos.x < data->rooms)
+	i.x = -1;
+	while (++i.x < data->rooms)
 	{
-		pos.y = 0;
-		while (++pos.y < data->rooms)
-			if (data->p[pos.x][pos.y] == ref * -1)
-			{
-				data->p[pos.x][pos.y] *= -1;
-				return (pos.x);
-			}
+		i.y = 0;
+		while (++i.y < data->rooms)
+		{
+			if (data->best[i.y] == data->end - 1)
+				break ;
+			if (i.y == i.x)
+				i.y++;
+			if (data->best[i.x] == data->best[i.y])
+				ft_printf("doublon best[%d]=%d best[%d]=%d\n", i.x, data->best[i.x], i.y, data->best[i.y]);
+		}
 	}
-	return (0);
 }
 
-int		shorten_best_way(t_data *data)
+void	get_best_way(t_data *data)
 {
-	int	i;
-	int	search;
+	t_pos sol;
 
-	ft_printf("shorten_best_way\n");
-	i = 0;
-	search = 0;
-	if (!(data->best_way = (int*)ft_memalloc(sizeof(int) * (unsigned long)data->len)))
+	sol.x = -1;
+	if (!(data->best = (int *)ft_memalloc(sizeof(int) * ((unsigned long)data->rooms + 1))))
 		ft_error(data, "Error malloc");
-	while (data->bway[i] != 0)
-		i++;
-	while (search < data->len && data->bway[--i] != 0)
-		data->best_way[search++] = data->bway[i];
-	return (0);
+	data->len = data->rooms;
+	while (++sol.x < data->rooms * 2)
+	{
+		sol.y = 0;
+		while (++sol.y < data->rooms)
+		{
+			if (data->s[sol.x][sol.y] == data->end - 1 && sol.y < data->len &&
+				data->s[sol.x][0] == data->start - 1)
+			{
+				data->best = data->s[sol.x];
+				data->len = sol.y;
+			}
+		}
+	}
 }
-
-// int		get_best_way(t_data *data)
-// {
-
-// }
 
 void	reset_matrix(t_data *data, int room)
 {
@@ -102,7 +90,7 @@ void	reset_matrix(t_data *data, int room)
 	{
 		if (data->p[room][pos.x] != 0)
 		{
-			data->p[room][pos.x] = 0;
+			// data->p[room][pos.x] = 0;
 			data->p[pos.x][room] = 0;
 			break ;
 		}
@@ -116,18 +104,27 @@ void	reset_matrix(t_data *data, int room)
 	}
 }
 
-int		get_ways(t_data *data, int room, int turn, int try)
+int		hacking_way(t_data *data, int room, int turn, int try)
 {
-	int pos;
-
-	pos = -1;
+	if (turn != 1 && room == data->start - 1)
+		return (1);
 	if (data->p[room][data->end - 1] > 0)
 	{
 		data->s[try][turn] = data->end - 1;
 		return (1);
 	}
+	return (0);
+}
+
+int		get_ways(t_data *data, int room, int turn, int try)
+{
+	int pos;
+
+	if (hacking_way(data, room, turn, try) == 1)
+		return (1);
 	else
 	{
+		pos = -1;
 		while (++pos < data->rooms)
 		{
 			if (data->p[room][pos] > 0)
@@ -141,7 +138,7 @@ int		get_ways(t_data *data, int room, int turn, int try)
 					return (get_ways(data, pos, turn, try));
 			}
 			if (turn > data->rooms)
-				ft_error(data, "No solution");
+				break ;
 		}
 	}
 	reset_matrix(data, room);
@@ -152,13 +149,14 @@ void	pathfinding(t_data *data)
 {
 	int try;
 
-	if (!(data->s = ft_inttab(data->rooms, data->rooms)) ||
-		!(data->next = (int *)ft_memalloc(sizeof(int) * ((unsigned long)data->rooms + 1))))
+	if (!(data->s = ft_inttab(data->rooms, data->rooms * 2)))
 		ft_error(data, "Error malloc");
 	try = -1;
-	while (++try < data->rooms)
+	while (++try < data->rooms * 2)
 	{
 		data->s[try][0] = data->start - 1;
 		get_ways(data, data->start - 1, 1, try);
 	}
+	get_best_way(data);
+	shortening_best_way(data);
 }

@@ -51,9 +51,31 @@ void	display_data(t_data *data, t_list *tmp, int i)
 	data->r = tmp;
 }
 
+void	display_best(t_data *data, t_list *tmp, int i)
+{
+	int j;
+
+	if (data->best[0] == data->best[1])
+		ft_error(data, "No solution found");
+	else
+	{
+		while (++i < data->rooms)
+		{
+			j = data->best[i];
+			i == 0 ? ft_printf(BOL "Best solution :\n" RES) : 0;
+			while (data->r && j--)
+				data->r = data->r->next;
+			ft_printf("%s%s", data->r->content, data->best[i] == data->end - 1 ? "\n" : " -> ");
+			data->r = tmp;
+			if (data->best[i] == data->end - 1)
+				break ;
+		}
+	}
+}
+
 void	display(t_data *data, int type)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = data->r;
 	if (!!(type & (DATA << 0)) || (!!(type & (ALL << 0))))
@@ -71,9 +93,7 @@ void	display(t_data *data, int type)
 		ft_putinttab(data->s, data->rooms);
 	}
 	if (!!(type & (BEST << 0)) || (!!(type & (ALL << 0))))
-	{
-		// ft_printf();
-	}
+		display_best(data, tmp, -1);
 }
 
 void	ft_free(t_data *data)
@@ -86,14 +106,8 @@ void	ft_free(t_data *data)
 		ft_inttabdel(data->s, data->rooms);
 	if (data->t != NULL)
 		ft_inttabdel(data->t, data->rooms);
-	if (data->next != NULL)
-		free(data->next);
-	if (data->way != NULL)
-		free(data->way);
-	if (data->bway != NULL)
-		free(data->bway);
-	if (data->best_way != NULL)
-		free(data->best_way);
+	// if (data->best != NULL)
+		// ft_inttabdel(&data->best, 1);
 	data = NULL;
 }
 
@@ -238,10 +252,7 @@ void	init_data(t_data *data)
 	data->p = NULL;
 	data->s = NULL;
 	data->t = NULL;
-	data->next = NULL;
-	data->way = NULL;
-	data->bway = NULL;
-	data->best_way = NULL;
+	data->best = NULL;
 	data->start = -1;
 	data->end = -1;
 	data->ants = 0;
