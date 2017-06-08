@@ -63,6 +63,7 @@ SRC = gnl.c \
 	ft_putendl.c \
 	ft_putendl_fd.c \
 	ft_putinttab.c \
+	ft_putlist.c \
 	ft_putnbrendl.c \
 	ft_putnbrendl_fd.c \
 	ft_putnbr.c \

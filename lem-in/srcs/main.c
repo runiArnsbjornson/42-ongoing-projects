@@ -11,65 +11,58 @@
 /* ************************************************************************** */
 
 #include <lem_in.h>
+#include <time.h>
 
 void	display_rooms(t_data *data, t_list *tmp, int i)
 {
 	ft_printf(GRN "List of rooms :\n" RES);
-	while (data->r)
+	while (tmp)
 	{
-		ft_printf("%d : %s", i, data->r->content);
+		ft_printf("%d : %s", i, tmp->content);
 		if (i == data->start - 1)
 			ft_printf(" << entrance\n");
 		else if (i == data->end - 1)
 			ft_printf(" << exit\n");
 		else
 			ft_printf("\n");
-		data->r = data->r->next;
+		tmp = tmp->next;
 		i++;
 	}
-	data->r = tmp;
 }
 
 void	display_data(t_data *data, t_list *tmp, int i)
 {
 	ft_printf("%s\nThere are %d rooms\n", BLU "Data parsed :" RES, data->rooms);
-	while (data->r && i < data->start - 1)
+	while (tmp && i < data->start - 1)
 	{
-		data->r = data->r->next;
+		tmp = tmp->next;
 		i++;
 	}
 	ft_printf("%d ant%s in the anthill\n", data->ants, data->ants == 1 ? " is" : "s are");
-	ft_printf("starting room is : %s\n", data->r->content);
-	data->r = tmp;
-	i = 0;
-	while (data->r && i < data->end - 1)
-	{
-		data->r = data->r->next;
-		i++;
-	}
-	ft_printf("exit is in room : %s\n", data->r->content);
-	data->r = tmp;
+	ft_printf("starting room is : %s\n", tmp->content);
+	tmp = data->r;
+	i = -1;
+	while (tmp && ++i < data->end - 1)
+		tmp = tmp->next;
+	ft_printf("exit is in room : %s\n", tmp->content);
 }
 
 void	display_best(t_data *data, t_list *tmp, int i)
 {
 	int j;
 
-	if (data->best[0] == data->best[1])
-		ft_error(data, "No solution found");
-	else
+	if (data->best[0] < 0 || (data->best[0] == data->best[1]))
+		ft_error(data, "Error with best way");
+	while (++i < data->lmax + 1)
 	{
-		while (++i < data->rooms)
-		{
-			j = data->best[i];
-			i == 0 ? ft_printf(BOL "Best solution :\n" RES) : 0;
-			while (data->r && j--)
-				data->r = data->r->next;
-			ft_printf("%s%s", data->r->content, data->best[i] == data->end - 1 ? "\n" : " -> ");
-			data->r = tmp;
-			if (data->best[i] == data->end - 1)
-				break ;
-		}
+		i == 0 ? ft_printf(BOL CYA "Best solution :\n" RES) : 0;
+		j = data->best[i];
+		while (tmp && j--)
+			tmp = tmp->next;
+		ft_printf("%s%s", tmp->content, data->best[i] == data->end - 1 ? "\n" : " -> ");
+		tmp = data->r;
+		if (data->best[i] == data->end - 1)
+			break ;
 	}
 }
 
@@ -90,7 +83,7 @@ void	display(t_data *data, int type)
 	if (!!(type & (SOLV << 0)) || (!!(type & (ALL << 0))))
 	{
 		ft_printf(YEL "Matrix of solution(s) :\n" RES);
-		ft_putinttab(data->s, data->rooms);
+		ft_putinttab(data->s, data->lmax);
 	}
 	if (!!(type & (BEST << 0)) || (!!(type & (ALL << 0))))
 		display_best(data, tmp, -1);
@@ -99,15 +92,25 @@ void	display(t_data *data, int type)
 void	ft_free(t_data *data)
 {
 	if (data->r != NULL)
+	{
 		ft_lstfree(&data->r);
+		ft_printf("test\n");
+	}
 	if (data->p != NULL)
+	{
 		ft_inttabdel(data->p, data->rooms);
+		ft_printf("test1\n");
+	}
 	if (data->s != NULL)
-		ft_inttabdel(data->s, data->rooms);
+	{
+		ft_inttabdel(data->s, data->lmax + 1);
+		ft_printf("test2\n");
+	}
 	if (data->t != NULL)
+	{
 		ft_inttabdel(data->t, data->rooms);
-	// if (data->best != NULL)
-		// ft_inttabdel(&data->best, 1);
+		ft_printf("test3\n");
+	}
 	data = NULL;
 }
 
@@ -176,6 +179,7 @@ void	get_path(t_data *data, char *line)
 	data->t[data->x][data->y] = p;
 	data->p[data->y][data->x] = p;
 	data->p[data->x][data->y] = p++;
+	data->len = p;
 	ft_strdel(&r1);
 }
 
@@ -323,6 +327,7 @@ int		main(int ac, char **av)
 {
 	t_data	data;
 	int		graph;
+	t_list *tmp;
 	int i;
 
 	i = 0;
@@ -332,7 +337,10 @@ int		main(int ac, char **av)
 	init_data(&data);
 	parser(&data);
 	check_data(&data);
+	tmp = data.r;
 	pathfinding(&data);
+	printf(RED "prout\n" RES);
+	ft_putlist(&tmp);
 	if (graph)
 		display(&data, graph);
 	display_solution(&data);

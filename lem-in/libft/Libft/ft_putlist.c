@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_error.c                                     :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/08 15:26:51 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/21 09:36:17 by jdebladi         ###   ########.fr       */
+/*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/06/02 15:17:15 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-void	ft_put_error(char *str)
+void	ft_putlist(t_list **alst)
 {
-	ft_putstr_fd(RED "ERROR" RES, 2);
-	if (str)
+	t_list *tmp;
+
+	tmp = *alst;
+	while (tmp)
 	{
-		ft_putstr_fd(" : ", 2);
-		ft_putendl_fd(str, 2);
+		printf(">> %s\n", tmp->content);
+		tmp = tmp->next;
 	}
 }

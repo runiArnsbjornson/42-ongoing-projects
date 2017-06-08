@@ -48,12 +48,14 @@ typedef struct	s_data
 	int		end;
 	int		ants;
 	int		rooms;
+	int		lmax;
 	int		len;
 	int		x;
 	int		y;
-	int		pad;
 }				t_data;
-
+/*
+** main.c
+*/
 void			display_rooms(t_data *data, t_list *tmp, int i);
 void			display_data(t_data *data, t_list *tmp, int i);
 void			display_best(t_data *data, t_list *tmp, int i);
@@ -73,7 +75,7 @@ int				check_opt(const char c);
 void			bad_arg(void) __attribute__((noreturn));
 int				graph_opt(char *av, int graph);
 /*
-**
+** pathfinding.c
 */
 void			display_solution(t_data *data);
 void			shortening_best_way(t_data *data);
@@ -81,6 +83,7 @@ void			get_best_way(t_data *data);
 void			reset_matrix(t_data *data, int room);
 int				hacking_way(t_data *data, int room, int turn, int try);
 int				get_ways(t_data *data, int room, int turn, int try);
+void			set(t_data *data);
 void			pathfinding(t_data *data);
 
 #endif
