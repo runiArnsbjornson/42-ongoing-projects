@@ -29,6 +29,6 @@ void	ft_putinttab(int **tab, int col)
 		x = -1;
 		ft_printf(MAG "%d\t" RES, i++);
 		while (++x < col)
-			ft_printf("%d%c", tab[y][x], x == col - 1 ? '\n' : '\t');
+			ft_printf("%d%s", tab[y][x], x == col - 1 ? "\n" : "\t");
 	}
 }

@@ -32,7 +32,8 @@ void	display_rooms(t_data *data, t_list *tmp, int i)
 
 void	display_data(t_data *data, t_list *tmp, int i)
 {
-	ft_printf("%s\nThere are %d rooms\n", BLU "Data parsed :" RES, data->rooms);
+	ft_printf(BLU "Data parsed\n" RES);
+	ft_printf("There are %d rooms and %d paths\n", data->rooms, data->lmax);
 	while (tmp && i < data->start - 1)
 	{
 		tmp = tmp->next;
@@ -51,8 +52,8 @@ void	display_best(t_data *data, t_list *tmp, int i)
 {
 	int j;
 
-	if (data->best[0] < 0 || (data->best[0] == data->best[1]))
-		ft_error(data, "Error with best way");
+	if (data->best == NULL || (data->best[0] == data->best[1]))
+		ft_error(data, "No solution");
 	while (++i < data->lmax + 1)
 	{
 		i == 0 ? ft_printf(BOL CYA "Best solution :\n" RES) : 0;
@@ -83,7 +84,7 @@ void	display(t_data *data, int type)
 	if (!!(type & (SOLV << 0)) || (!!(type & (ALL << 0))))
 	{
 		ft_printf(YEL "Matrix of solution(s) :\n" RES);
-		ft_putinttab(data->s, data->lmax);
+		ft_putinttab(data->s, (data->lmax + 1) * 2);
 	}
 	if (!!(type & (BEST << 0)) || (!!(type & (ALL << 0))))
 		display_best(data, tmp, -1);
@@ -92,25 +93,13 @@ void	display(t_data *data, int type)
 void	ft_free(t_data *data)
 {
 	if (data->r != NULL)
-	{
 		ft_lstfree(&data->r);
-		ft_printf("test\n");
-	}
 	if (data->p != NULL)
-	{
 		ft_inttabdel(data->p, data->rooms);
-		ft_printf("test1\n");
-	}
 	if (data->s != NULL)
-	{
 		ft_inttabdel(data->s, data->lmax + 1);
-		ft_printf("test2\n");
-	}
 	if (data->t != NULL)
-	{
 		ft_inttabdel(data->t, data->rooms);
-		ft_printf("test3\n");
-	}
 	data = NULL;
 }
 
@@ -121,11 +110,11 @@ void	ft_error(t_data *data, char *str)
 	exit(0);
 }
 
-void	get_ants_nbr(t_data *data)
+void	get_ants_nbr(t_data *data, int fd)
 {
 	char	*line;
 
-	if (gnl(0, &line) > 0)
+	if (gnl(fd, &line) > 0)
 	{
 		if (!line)
 			ft_error(data, "Bad ants input");
@@ -187,11 +176,13 @@ void	check_rooms(t_data *data, char *r)
 {
 	t_list *tmp;
 
+	if (ft_bool_strchr(r, '-'))
+		ft_error(data, "Wrong room name");
 	tmp = data->r;
 	while (tmp)
 	{
 		if (ft_strcmp(r, tmp->content) == 0)
-			ft_error(data, "Wrong room name");
+			ft_error(data, "Duplicate room name");
 		tmp = tmp->next;
 	}
 }
@@ -201,6 +192,8 @@ void	get_room(t_data *data, char *line)
 	char	*r;
 	t_list	*tmp;
 
+	if (*line == 'L' || *line == '#')
+		ft_error(data, "Wrong room name");
 	r = ft_strccpy(line, 32);
 	check_rooms(data, r);
 	if ((tmp = ft_lstnew(r, ft_strlen(r))) == NULL)
@@ -214,27 +207,36 @@ void	get_room(t_data *data, char *line)
 	ft_strdel(&r);
 }
 
-void	get_type(t_data *data, char *line)
+void	get_type(t_data *data, char *line, int fd)
 {
 	if (ft_strcmp(line, "##start") == 0 && data->start == -1)
+	{
 		data->start = 0;
+		if (gnl(fd, &line) > 0)
+			get_room(data, line);
+	}
 	else if (ft_strcmp(line, "##end") == 0 && data->end == -1)
+	{
 		data->end = 0;
-	else
-		ft_error(data, "Wrong ## input");
+		if (gnl(fd, &line) > 0)
+			get_room(data, line);
+	}
 }
 
-void	parser(t_data *data)
+void	parser(t_data *data, char *av)
 {
 	char *line;
+	int fd;
 
-	get_ants_nbr(data);
-	while (gnl(0, &line) > 0)
+	if ((fd = open(av, O_RDONLY)) < 0)
+		ft_error(data, "Read failed");
+	get_ants_nbr(data, fd);
+	while (gnl(fd, &line) > 0)
 	{
 		if (!*line)
 			break ;
 		if (ft_strncmp(line, "##", 2) == 0)
-			get_type(data, line);
+			get_type(data, line, fd);
 		else if (*line == '#')
 			ft_putendl_fd(line + 1, 2);
 		else
@@ -257,6 +259,7 @@ void	init_data(t_data *data)
 	data->s = NULL;
 	data->t = NULL;
 	data->best = NULL;
+	data->been = NULL;
 	data->start = -1;
 	data->end = -1;
 	data->ants = 0;
@@ -288,7 +291,7 @@ int		check_opt(const char c)
 
 void	bad_arg(void)
 {
-	ft_putendl_fd("usage: ./lem-in [-drpsba] < \033[04mfile\033[0m", 2);
+	ft_putendl_fd("usage: ./lem-in [-drpsba] \033[04mfile\033[0m", 2);
 	ft_putendl_fd("-d\tDisplay the data parsed", 2);
 	ft_putendl_fd("-r\tDisplay the list of rooms", 2);
 	ft_putendl_fd("-p\tDisplay the matrix of paths", 2);
@@ -327,20 +330,21 @@ int		main(int ac, char **av)
 {
 	t_data	data;
 	int		graph;
-	t_list *tmp;
 	int i;
 
 	i = 0;
 	graph = 0;
-	while (++i < ac)
-		graph = graph_opt(av[i], 0);
+	if (ac == 1)
+		bad_arg();
+	if (ac > 2)
+	{
+		while (++i < ac - 1)
+			graph = graph_opt(av[i], 0);
+	}
 	init_data(&data);
-	parser(&data);
-	check_data(&data);
-	tmp = data.r;
+	parser(&data, av[ac - 1]);
 	pathfinding(&data);
-	printf(RED "prout\n" RES);
-	ft_putlist(&tmp);
+	check_data(&data);
 	if (graph)
 		display(&data, graph);
 	display_solution(&data);

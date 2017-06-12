@@ -1,4 +1,4 @@
-8
+42
 ##start
 42_Commandements 2150 3000
 Filit 2775 3000
@@ -14,7 +14,7 @@ roger_skyline_2 4100 2250
 Piscine_Swift_iOS 2100 3839
 Piscine_CPP 2400 4039
 Nm_otool 3000 1600
-Philosophers  3100 1750
+Philosophers 3100 1750
 ft_script 2900 1750
 RT 3000 3900
 42sh 3000 2100
@@ -107,7 +107,6 @@ ft_ality 1690 3580
 Piscine_Reloaded-libft
 libft-Filit
 Filit-Get_Next_line
-# Branche algo
 Get_Next_line-ft_printf
 ft_printf-Push_swap
 ft_printf-Filer
@@ -117,7 +116,6 @@ lem_in-Corewar
 lem_in-mod1
 Corewar-First_Internship
 Corewar-Corewar_Championship
-#  Branche graph
 Get_Next_line-FdF
 FdF-Fract'ol
 Fract'ol-Wolf3d
@@ -125,7 +123,6 @@ Fract'ol-RTv1
 RTv1-RT
 Wolf3d-RT
 RT-First_Internship
-# Branche sys
 Get_Next_line-ft_ls
 ft_ls-minishel
 minishel-ft_select
@@ -133,16 +130,13 @@ minishel-21sh
 21sh-Taskmaster
 21sh-42sh
 42sh-First_Internship
-# Branche web
 Piscine_PHP-Camagru
 Camagru-Matcha
 Matcha-Hypertube
 Matcha-First_Internship
-# Branche web apres stage
 First_Internship-Friends_with_Benefits
 First_Internship-Darkly
 First_Internship-Red_Tetris
-# Branche algo apres stage
 First_Internship-ComputorV1
 First_Internship-N_puzzle
 First_Internship-Expert_System
@@ -154,17 +148,14 @@ N_puzzle-Rubik
 N_puzzle-Gomoku
 N_puzzle-ft_linear_regression
 N_puzzle-KrpSim
-#Branche graph apres stage
 First_Internship-Scop
 Scop-42run
 Scop-HumanGl
 Scop-Particle_System
-#Branch sys apes stage
 First_Internship-Malloc
 Malloc-Philosophers
 Malloc-ft_script
 Malloc-Nm_otool
-#Branche sys : cote droit
 Nm_otool-ft_p
 Nm_otool-IRC
 IRC-Zappy
@@ -177,7 +168,6 @@ IRC-ft_ping
 Nm_otool-ft_ping
 ft_ping-ft_traceroute
 ft_traceroute-ft_nmap
-#Branche sys : cote gauche
 Nm_otool-libftASM
 libftASM-strace
 libftASM-GBmu
@@ -194,22 +184,18 @@ libftASM-Snow_Crash
 Snow_Crash-RainFall
 libftASM-Root_me_|_App_Systeme
 Root_me_|_App_Systeme-Root_me_|_Cracking
-#Branche sys : en haut
 Famine-Woody_Woodpacker
 Woody_Woodpacker-Nm_otool
 Famine-libftASM
 First_Internship-Dr_Quine
-# les projets pas relies
 First_Internship-Piscine_Python_Django
 First_Internship-Piscine_Ruby_on_Rails
 First_Internship-Docker
 First_Internship-Music_Room
-# Branche OCaml
 First_Internship-Piscine_OCaml
 Piscine_OCaml-H42N42
 Piscine_OCaml-ft_turing
 Piscine_OCaml-ft_ality
-# Branche CPP et consors
 First_Internship-Piscine_Swift_iOS
 First_Internship-Piscine_CPP
 Piscine_CPP-Piscine_Unity
@@ -222,11 +208,8 @@ Nibbler-Abstract_VM
 Bomberman-Abstract_VM
 Piscine_Unity-In_the_Shadows
 In_the_Shadows-XV
-# Open projects
 Open_Project_I-First_Internship
 Open_Project_II-First_Internship
-# cloud
 First_Internship-cloud_1
-# reseau
 First_Internship-roger_skyline_1
 roger_skyline_1-roger_skyline_2

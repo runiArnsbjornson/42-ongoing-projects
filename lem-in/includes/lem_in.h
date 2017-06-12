@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <limits.h>
+# include <fcntl.h>
 
 # define DATA 00000001
 # define ROOM 00000010
@@ -43,6 +44,7 @@ typedef struct	s_data
 	int		**p;
 	int		**s;
 	int		**t;
+	int		*been;
 	int		*best;
 	int		start;
 	int		end;
@@ -62,13 +64,13 @@ void			display_best(t_data *data, t_list *tmp, int i);
 void			display(t_data *data, int type);
 void			ft_free(t_data *data);
 void			ft_error(t_data *data, char *str) __attribute__((noreturn));
-void			get_ants_nbr(t_data *data);
+void			get_ants_nbr(t_data *data, int av);
 void			check_path(t_data *data, t_list *tmp, char *r1, char *r2);
 void			get_path(t_data *data, char *line);
 void			check_rooms(t_data *data, char *r);
 void			get_room(t_data *data, char *line);
-void			get_type(t_data *data, char *line);
-void			parser(t_data *data);
+void			get_type(t_data *data, char *line, int fd);
+void			parser(t_data *data, char *av);
 void			init_data(t_data *data);
 void			check_data(t_data *data);
 int				check_opt(const char c);

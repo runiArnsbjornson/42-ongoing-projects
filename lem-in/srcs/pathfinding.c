@@ -20,7 +20,7 @@ void	display_solution(t_data *data)
 
 	ft_printf("display_solution\n");
 	i = data->len;
-	if (!data->best || data->best[0] != data->end - 1)
+	if (data->best == NULL || data->best[0] != data->end - 1)
 		ft_error(data, "No solution");
 	i = data->len;
 	while (i-- > 0)
@@ -64,16 +64,17 @@ void	get_best_way(t_data *data)
 
 	sol.x = -1;
 	data->lmax = data->len;
-	while (++sol.x < data->lmax * data->lmax)
+	while (++sol.x < (data->lmax + data->rooms) * 2)
 	{
 		sol.y = 0;
-		while (++sol.y < data->lmax + 1)
+		while (++sol.y < (data->lmax + 1) * 2)
 		{
 			if (data->s[sol.x][sol.y] == data->end - 1 && sol.y < data->len &&
 				data->s[sol.x][0] == data->start - 1)
 			{
 				data->best = data->s[sol.x];
 				data->len = sol.y;
+				break ;
 			}
 		}
 	}
@@ -121,6 +122,7 @@ int		get_ways(t_data *data, int room, int turn, int try)
 {
 	int pos;
 
+	data->been[room] = 1;
 	if (hacking_way(data, room, turn, try))
 		return (1);
 	else
@@ -128,12 +130,12 @@ int		get_ways(t_data *data, int room, int turn, int try)
 		pos = -1;
 		while (++pos < data->rooms)
 		{
-			if (data->p[room][pos] > 0)
+			if (data->p[room][pos] > 0 && data->been[pos] == 0)
 			{
 				// data->p[room][pos] *= -1;
 				data->p[pos][room] *= -1;
 				data->s[try][turn++] = pos;
-				if (turn > data->len + 1)
+				if (turn > (data->len + 1) * 2)
 					break ;
 				else
 					return (get_ways(data, pos, turn, try));
@@ -149,10 +151,10 @@ void	set(t_data *data)
 	t_pos pos;
 
 	pos.x = -1;
-	while (++pos.x < data->len * data->len)
+	while (++pos.x < (data->len + data->rooms) * 2)
 	{
 		pos.y = -1;
-		while (++pos.y < data->len + 1)
+		while (++pos.y < (data->len + 1) * 2)
 			data->s[pos.x][pos.y] = -1;
 	}
 }
@@ -160,16 +162,20 @@ void	set(t_data *data)
 void	pathfinding(t_data *data)
 {
 	int try;
+	int i;
 
-	if (!(data->s = ft_inttab(data->len + 1, data->len * data->len)))
+	if (!(data->s = ft_inttab((data->len + 1) * 2, (data->len + data->rooms) * 2)) || !(data->been = *ft_inttab(data->rooms, 1)))
 		ft_error(data, "Error malloc");
 	set(data);
 	try = -1;
-	while (++try < data->len * data->len)
+	while (++try < (data->len + data->rooms) * 2)
 	{
+		i = -1;
+		while (++i < data->rooms)
+			data->been[i] = 0;
 		data->s[try][0] = data->start - 1;
 		get_ways(data, data->start - 1, 1, try);
 	}
 	get_best_way(data);
-	shortening_best_way(data);
+	//shortening_best_way(data);
 }
