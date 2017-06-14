@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 13:44:10 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/19 15:12:33 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/14 12:29:42 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int					bin_format(char *buf, int i, t_flag *f, int len);
 char				*bin_to_string(char *buf, int i, unsigned long long n, t_flag *f);
 int					bin_handler(va_list args, t_flag *f);
 /*
-**
+** char
 */
 int					char_handler(va_list args, t_flag *f);
 /*
-**
+** dec
 */
 int					dec_handler(va_list args, t_flag *f);
 char				*udec_to_string(char *buf, int i, unsigned long long n, t_flag *f);
@@ -64,7 +64,7 @@ char				*dec_to_string(char *buf, int i, long long n, t_flag *f);
 int					dec_format(char *buf, int i, t_flag *f, int len);
 int					sign_dec(char *buf, int i, t_flag *f, int len);
 /*
-**
+** float
 */
 int					sign_float(char *buf, int i, t_flag *f, int len);
 int					float_format(char *buf, int i, t_flag *f, int len);
@@ -72,28 +72,28 @@ int					float_mantis(char *buf, int i, t_flag *f, long double mantis);
 char				*float_to_string(char *buf, int i, long double n, t_flag *f);
 int					float_handler(va_list args, t_flag *f);
 /*
-**
+** hex
 */
 int					hex_preci_zero(char *buf, int i, t_flag *f, int len);
 char				*hex_to_string(char *buf, int i, unsigned long long n, t_flag *f);
 int					hex_handler(va_list args, t_flag *f);
 /*
-**
+** oct
 */
 int					oct_preci_zero(char *buf, int i, t_flag *f, int len);
 char				*oct_to_string(char *buf, int i, unsigned long long n, t_flag *f);
 int					oct_handler(va_list args, t_flag *f);
 /*
-**
+** %
 */
 int					percent_handler(t_flag *f);
 /*
-**
+** string
 */
 int					wstring_handler(va_list args, t_flag *f);
 int					string_handler(va_list args, t_flag *f);
 /*
-**
+** uchar
 */
 int					numberbits(unsigned int code);
 void				push_char(char *buf, size_t *index, char eob);

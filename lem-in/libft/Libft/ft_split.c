@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/19 12:29:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/19 13:37:09 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/14 12:26:22 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static unsigned long	lenght(char *str)
 
 static unsigned long	nb_word(char *str)
 {
-	int i;
-	unsigned long count;
+	int				i;
+	unsigned long	count;
 
 	i = 0;
 	count = 0;

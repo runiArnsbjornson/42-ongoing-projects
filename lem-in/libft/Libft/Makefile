@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 18:34:05 by jdebladi          #+#    #+#              #
-#    Updated: 2017/06/01 13:35:33 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/06/14 15:04:09 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRC = gnl.c \
 	ft_atoi.c \
 	ft_bool_strchr.c \
 	ft_bzero.c \
+	ft_dequeue.c \
+	ft_enqueue.c \
 	ft_ftoa.c \
 	ft_gnl.c \
 	ft_inttab.c \

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/02 15:17:15 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/14 15:06:39 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@
 # define OVR "\033[53m"
 # define RES "\033[00m"
 
+typedef struct	s_q
+{
+	long		n;
+	struct s_q	*next;
+}				t_q;
+
+typedef struct	s_queue
+{
+	t_q		*first;
+}				t_queue;
+
 typedef struct	s_lst
 {
 	long			fd;
@@ -76,7 +87,7 @@ long			ft_strtol(const char *nptr);
 ** math func
 */
 long			ft_abs(int nb);
-unsigned long 	ft_pwr(int nb, int power);
+unsigned long	ft_pwr(int nb, int power);
 long long		ft_lpwr(long long nb, int pwr);
 int				ft_sqrt(int n);
 /*
@@ -96,6 +107,8 @@ int				ft_isupper(int c);
 /*
 ** list func
 */
+int				ft_dequeue(t_queue *q);
+void			ft_enqueue(t_queue *q, int new);
 int				ft_lstlen(t_list **alst);
 void			ft_lstfree(t_list **alst);
 void			ft_lstadd(t_list **alst, t_list *new);

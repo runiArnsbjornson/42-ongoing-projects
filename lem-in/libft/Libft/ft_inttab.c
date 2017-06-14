@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:34:48 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/01 17:23:37 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/14 12:25:55 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	**ft_inttab(int col, int line)
 	int	**tab;
 
 	i = 0;
-	if (!line || !(tab = (int **)ft_memalloc(sizeof(int *) * (unsigned long)(line + 1))) || !col)
+	if (!line || !(tab = (int **)ft_memalloc(sizeof(int *) *
+		(unsigned long)(line + 1))) || !col)
 		return (NULL);
 	while (i < line)
 	{

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gnl.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/30 12:25:22 by jdebladi          #+#    #+#             */
+/*   Updated: 2017/06/14 17:30:36 by jdebladi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int		ft_pansement(char *buffer, char *stock, char **line)
+static int		ft_fix(char *buffer, char *stock, char **line)
 {
 	if ((buffer = ft_strchr(stock, '\0')) != NULL)
 	{
@@ -52,5 +64,5 @@ int				gnl(const int fd, char **line)
 			return (1);
 		}
 	}
-	return ((*stock == '\0') ? 0 : ft_pansement(buffer, stock, line));
+	return ((*stock == '\0') ? 0 : ft_fix(buffer, stock, line));
 }

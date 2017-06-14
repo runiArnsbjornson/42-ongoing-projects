@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/02 17:20:30 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/14 17:33:46 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ void	display_best(t_data *data, t_list *tmp, int i)
 
 	if (data->best == NULL || (data->best[0] == data->best[1]))
 		ft_error(data, "No solution");
-	while (++i < data->lmax + 1)
+	while (++i < data->lmax)
 	{
 		i == 0 ? ft_printf(BOL CYA "Best solution :\n" RES) : 0;
+		i == 0 ? ft_printf("shortest way is %d long\n", data->len): 0;
 		j = data->best[i];
 		while (tmp && j--)
 			tmp = tmp->next;
@@ -96,10 +97,12 @@ void	ft_free(t_data *data)
 		ft_lstfree(&data->r);
 	if (data->p != NULL)
 		ft_inttabdel(data->p, data->rooms);
-	if (data->s != NULL)
-		ft_inttabdel(data->s, data->lmax + 1);
 	if (data->t != NULL)
 		ft_inttabdel(data->t, data->rooms);
+	if (data->mark != NULL)
+		free(data->mark);
+	if (data->s != NULL)
+		ft_inttabdel(data->s, (data->lmax + data->rooms) * 2);
 	data = NULL;
 }
 
@@ -164,11 +167,11 @@ void	get_path(t_data *data, char *line)
 			ft_error(data, "Error malloc");
 	tmp = data->r;
 	check_path(data, tmp, r1, ft_strchr(line, '-') + 1);
-	data->t[data->y][data->x] = p;
-	data->t[data->x][data->y] = p;
-	data->p[data->y][data->x] = p;
-	data->p[data->x][data->y] = p++;
-	data->len = p;
+	data->t[data->y][data->x] = 1;
+	data->t[data->x][data->y] = 1;
+	data->p[data->y][data->x] = 1;
+	data->p[data->x][data->y] = 1;
+	data->lmax = p++;
 	ft_strdel(&r1);
 }
 
@@ -213,13 +216,19 @@ void	get_type(t_data *data, char *line, int fd)
 	{
 		data->start = 0;
 		if (gnl(fd, &line) > 0)
+		{
 			get_room(data, line);
+			ft_strdel(&line);
+		}
 	}
 	else if (ft_strcmp(line, "##end") == 0 && data->end == -1)
 	{
 		data->end = 0;
 		if (gnl(fd, &line) > 0)
+		{
 			get_room(data, line);
+			ft_strdel(&line);
+		}
 	}
 }
 
@@ -255,15 +264,17 @@ void	parser(t_data *data, char *av)
 void	init_data(t_data *data)
 {
 	data->r = NULL;
+	data->sol = NULL;
 	data->p = NULL;
 	data->s = NULL;
 	data->t = NULL;
 	data->best = NULL;
-	data->been = NULL;
+	data->mark = NULL;
 	data->start = -1;
 	data->end = -1;
 	data->ants = 0;
 	data->rooms = 0;
+	data->lmax = 0;
 	data->len = 0;
 	data->x = 0;
 	data->y = 0;
@@ -347,7 +358,7 @@ int		main(int ac, char **av)
 	check_data(&data);
 	if (graph)
 		display(&data, graph);
-	display_solution(&data);
+	// display_solution(&data);
 	ft_free(&data);
 	return (0);
 }

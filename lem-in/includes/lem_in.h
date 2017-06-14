@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/02 16:55:58 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/14 17:03:42 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,19 @@ typedef struct	s_pos
 
 typedef struct	s_path
 {
-	char		*r1;
-	char		*r2;
+	char	*r1;
+	char	*r2;
 }				t_path;
 
-typedef struct	s_data
+typedef struct	s_stack
 {
 	t_list	*r;
+	t_list	*sol;
 	int		**p;
 	int		**s;
 	int		**t;
-	int		*been;
 	int		*best;
+	int		*mark;
 	int		start;
 	int		end;
 	int		ants;
@@ -80,6 +81,7 @@ int				graph_opt(char *av, int graph);
 ** pathfinding.c
 */
 void			display_solution(t_data *data);
+void			display_queue(t_queue *f);
 void			shortening_best_way(t_data *data);
 void			get_best_way(t_data *data);
 void			reset_matrix(t_data *data, int room);
