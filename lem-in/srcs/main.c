@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/14 17:33:46 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/15 16:25:39 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	display_rooms(t_data *data, t_list *tmp, int i)
 void	display_data(t_data *data, t_list *tmp, int i)
 {
 	ft_printf(BLU "Data parsed\n" RES);
-	ft_printf("There are %d rooms and %d paths\n", data->rooms, data->lmax);
+	ft_printf("There are %d rooms and %d paths\n", data->rooms, (data->lmax - 1) / 2);
 	while (tmp && i < data->start - 1)
 	{
 		tmp = tmp->next;
@@ -53,18 +53,16 @@ void	display_best(t_data *data, t_list *tmp, int i)
 	int j;
 
 	if (data->best == NULL || (data->best[0] == data->best[1]))
-		ft_error(data, "No solution");
-	while (++i < data->lmax)
+		ft_error(data, "No solution found");
+	while (++i < data->len + 1)
 	{
 		i == 0 ? ft_printf(BOL CYA "Best solution :\n" RES) : 0;
-		i == 0 ? ft_printf("shortest way is %d long\n", data->len): 0;
+		i == 0 ? ft_printf("shortest way is %d long\n", data->len + 1): 0;
 		j = data->best[i];
 		while (tmp && j--)
 			tmp = tmp->next;
-		ft_printf("%s%s", tmp->content, data->best[i] == data->end - 1 ? "\n" : " -> ");
+		ft_printf("%s%s", tmp->content, i == data->len ? "\n" : " -> ");
 		tmp = data->r;
-		if (data->best[i] == data->end - 1)
-			break ;
 	}
 }
 
@@ -85,7 +83,7 @@ void	display(t_data *data, int type)
 	if (!!(type & (SOLV << 0)) || (!!(type & (ALL << 0))))
 	{
 		ft_printf(YEL "Matrix of solution(s) :\n" RES);
-		ft_putinttab(data->s, (data->lmax + 1) * 2);
+		ft_putinttab(data->s, data->lmax);
 	}
 	if (!!(type & (BEST << 0)) || (!!(type & (ALL << 0))))
 		display_best(data, tmp, -1);
@@ -102,7 +100,7 @@ void	ft_free(t_data *data)
 	if (data->mark != NULL)
 		free(data->mark);
 	if (data->s != NULL)
-		ft_inttabdel(data->s, (data->lmax + data->rooms) * 2);
+		ft_inttabdel(data->s, data->lmax + data->rooms);
 	data = NULL;
 }
 
@@ -119,11 +117,9 @@ void	get_ants_nbr(t_data *data, int fd)
 
 	if (gnl(fd, &line) > 0)
 	{
-		if (!line)
+		if (!*line)
 			ft_error(data, "Bad ants input");
 		data->ants = ft_atoi(line);
-		if (!(data->ants > 0 && data->ants <= INT_MAX))
-			ft_error(data, "Wrong ants nbr");
 		ft_strdel(&line);
 	}
 }
@@ -158,7 +154,6 @@ void	get_path(t_data *data, char *line)
 {
 	char		*r1;
 	t_list		*tmp;
-	static int	p = 1;
 
 	r1 = ft_strccpy(line, '-');
 	if (data->p == NULL)
@@ -171,7 +166,7 @@ void	get_path(t_data *data, char *line)
 	data->t[data->x][data->y] = 1;
 	data->p[data->y][data->x] = 1;
 	data->p[data->x][data->y] = 1;
-	data->lmax = p++;
+	data->lmax++;
 	ft_strdel(&r1);
 }
 
@@ -282,8 +277,12 @@ void	init_data(t_data *data)
 
 void	check_data(t_data *data)
 {
+	if (!(data->ants > 0 && data->ants <= INT_MAX))
+		ft_error(data, "Wrong ants nbr");
 	if (data->start == data->end || data->start < 0 || data->end < 0)
 		ft_error(data, "Error with start/end");
+	if (data->lmax == 0)
+		ft_error(data, "Wrong path");
 }
 
 int		check_opt(const char c)
@@ -354,11 +353,11 @@ int		main(int ac, char **av)
 	}
 	init_data(&data);
 	parser(&data, av[ac - 1]);
-	pathfinding(&data);
 	check_data(&data);
+	pathfinding(&data);
 	if (graph)
 		display(&data, graph);
-	// display_solution(&data);
+	display_solution(&data);
 	ft_free(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/14 17:03:42 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/15 14:14:12 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void			display_solution(t_data *data);
 void			display_queue(t_queue *f);
 void			shortening_best_way(t_data *data);
 void			get_best_way(t_data *data);
-void			reset_matrix(t_data *data, int room);
+void			reset_matrix(t_data *data, int room, int turn, int try);
+void			reset_hacked_matrix(t_data *data, int room, int turn, int try);
 int				hacking_way(t_data *data, int room, int turn, int try);
 int				get_ways(t_data *data, int room, int turn, int try);
 void			set(t_data *data);
