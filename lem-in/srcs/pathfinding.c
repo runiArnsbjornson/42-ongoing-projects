@@ -6,98 +6,105 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 16:45:43 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/15 16:54:26 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/16 15:57:56 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lem_in.h>
 
-void	display_solution(t_data *data)
+void	display_solution(t_data *d)
 {
-	t_list	*tmp;
-	t_pos	i;
-	t_pos	j;
+	int		in;
+	int		i;
+	int		y;
 
-	ft_printf("display_solution\n");
-	if (data->best == NULL || data->best[0] == data->best[1])
-		ft_error(data, "No solution");
-	j.y = 0;
-	while (++j.y <= data->len)
+	ft_printf("display_solution %d\n", d->ants);
+	if (d->best == NULL || d->best[0] == d->best[1])
+		ft_error(d, "No solution");
+	if (d->max == NULL)
+		if (!(d->max = (int *)ft_memalloc(sizeof(int) * (unsigned int)d->ants + 1)))
+			ft_error(d, "Error malloc");
+	y = 0;
+	in = 1;
+	while (y != d->len)
 	{
-		i.y = 0;
-		if (++i.y <= j.y)
+		i = 0;
+		while(++i < in)
 		{
-			tmp = data->r;
-			j.x = data->best[i.y];
-			while (tmp && j.x--)
-				tmp = tmp->next;
-			ft_printf("L%d-%s ", j.y, tmp->content);
+			y = 0;
+			if (y != d->len)
+			{
+				ft_printf("L%d-%s ", i, get_content(d->r, d->best[y]));
+				y++;
+			}
 		}
 		ft_printf("\n");
+		if (in <= d->ants)
+			in++;
 	}
-	ft_printf("shortest way is %d long\n", data->len);
+	ft_printf("shortest way is %d long\n", d->len);
 }
 
-void	shortening_best_way(t_data *data)
+void	shortening_best_way(t_data *d)
 {
 	t_pos i;
 
 	i.x = -1;
-	while (++i.x < data->lmax)
+	while (++i.x < d->lmax)
 	{
 		i.y = 0;
 		while (++i.y < i.x)
 		{
-			if (data->best[i.y] == data->end - 1)
+			if (d->best[i.y] == d->end - 1)
 				break ;
-			if (data->best[i.x] == data->best[i.y])
+			if (d->best[i.x] == d->best[i.y])
 			{
-				ft_printf("doublon best[%d]=%d best[%d]=%d\n", i.x, data->best[i.x], i.y, data->best[i.y]);
+				ft_printf("doublon best[%d]=%d best[%d]=%d\n", i.x, d->best[i.x], i.y, d->best[i.y]);
 			}
 		}
 	}
 }
 
-void	get_best_way(t_data *data)
+void	get_best_way(t_data *d)
 {
 	t_pos sol;
 
 	sol.x = -1;
-	while (++sol.x < data->lmax + data->rooms)
+	while (++sol.x < d->lmax + d->rooms)
 	{
 		sol.y = -1;
-		while (++sol.y < data->lmax)
+		while (++sol.y < d->lmax)
 		{
-			if (data->s[sol.x][sol.y] == data->end - 1 && sol.y < data->len &&
-				data->s[sol.x][0] == data->start - 1)
+			if (d->s[sol.x][sol.y] == d->end - 1 && sol.y < d->len &&
+				d->s[sol.x][0] == d->start - 1)
 			{
-				data->best = data->s[sol.x];
-				data->len = sol.y;
+				d->best = d->s[sol.x];
+				d->len = sol.y;
 				break ;
 			}
 		}
 	}
 }
 
-void	reset_matrix(t_data *data, int room, int turn, int try)
+void	reset_matrix(t_data *d, int room, int turn, int try)
 {
 	t_pos pos;
 
 	ft_printf(BOL GRN "enter RESET room=%d turn=%d try=%d\n" RES, room, turn, try);
-	ft_putinttab(data->p, data->rooms);
+	ft_putinttab(d->p, d->rooms);
 	if (turn > 1)
-		data->p[data->s[try][turn - 2]][data->s[try][turn - 1]] = 0;
+		d->p[d->s[try][turn - 2]][d->s[try][turn - 1]] = 0;
 	pos.x = -1;
-	while (++pos.x < data->rooms)
+	while (++pos.x < d->rooms)
 	{
 		pos.y = -1;
-		while (++pos.y < data->rooms)
-			data->p[pos.y][pos.x] = (int)ft_abs(data->p[pos.y][pos.x]);
+		while (++pos.y < d->rooms)
+			d->p[pos.y][pos.x] = (int)ft_abs(d->p[pos.y][pos.x]);
 	}
-	ft_putinttab(data->p, data->rooms);
+	ft_putinttab(d->p, d->rooms);
 }
 
-void	reset_hacked_matrix(t_data *data, int room, int turn, int try)
+void	reset_hacked_matrix(t_data *d, int room, int turn, int try)
 {
 	t_pos pos;
 
@@ -105,109 +112,109 @@ void	reset_hacked_matrix(t_data *data, int room, int turn, int try)
 	{
 		pos.y = 0;
 		pos.x = -1;
-		while (++pos.x < data->rooms)
+		while (++pos.x < d->rooms)
 		{
-			if (data->p[pos.x][data->s[try][turn - 1]] > 0)
+			if (d->p[pos.x][d->s[try][turn - 1]] > 0)
 				pos.y++;
 		}
 		if (pos.y > 1)
-			reset_matrix(data, room, turn, try);
+			reset_matrix(d, room, turn, try);
 		else
-			reset_hacked_matrix(data, room, turn - 1, try);
+			reset_hacked_matrix(d, room, turn - 1, try);
 	}
 }
 
 
-int		hacking_way(t_data *data, int room, int turn, int try)
+int		hacking_way(t_data *d, int room, int turn, int try)
 {
 
-	if (data->p[room][data->end - 1] > 0)
+	if (d->p[room][d->end - 1] > 0)
 	{
 		// ft_printf(BLU "END hack\n" RES);
-		data->p[room][data->end - 1] *= -1;
-		data->s[try][turn] = data->end - 1;
+		d->p[room][d->end - 1] *= -1;
+		d->s[try][turn] = d->end - 1;
 		return (1);
 	}
 	return (0);
 }
 
-int		get_ways(t_data *data, int room, int turn, int try)
+int		get_ways(t_data *d, int room, int turn, int try)
 {
 	int pos;
 	// int i;
 
-	data->mark[room] = 1;
+	d->mark[room] = 1;
 	// i = -1;
-	// while (++i < data->rooms)
-	// 	ft_printf("[%s%d%s]%c", data->mark[i] == 1 ? GRN : RED, data->mark[i], RES, i == data->rooms - 1 ? '\n': ' ');
-	if (hacking_way(data, room, turn, try) == 1)
-		reset_hacked_matrix(data, room, turn, try);
+	// while (++i < d->rooms)
+	// 	ft_printf("[%s%d%s]%c", d->mark[i] == 1 ? GRN : RED, d->mark[i], RES, i == d->rooms - 1 ? '\n': ' ');
+	if (hacking_way(d, room, turn, try) == 1)
+		reset_hacked_matrix(d, room, turn, try);
 	else
 	{
 		// ft_printf(YEL "enter ELSE room=%d turn=%d try=%d\n" RES, room, turn, try);
-		// ft_putinttab(data->p, data->rooms);
+		// ft_putinttab(d->p, d->rooms);
 		pos = -1;
-		while (++pos < data->rooms)
+		while (++pos < d->rooms)
 		{
-			if (data->p[room][pos] > 0)
+			if (d->p[room][pos] > 0)
 			{
-				if (data->mark[pos] == 0)
+				if (d->mark[pos] == 0)
 				{
-					data->p[room][pos] *= -1;
-					data->s[try][turn++] = pos;
+					d->p[room][pos] *= -1;
+					d->s[try][turn++] = pos;
 					// ft_printf(BLU "NO MARK room=%d pos=%d\n" RES, room, pos);
-					// ft_putinttab(data->p, data->rooms);
-					// ft_putinttab(data->s, data->lmax);
-					return (get_ways(data, pos, turn, try));
+					// ft_putinttab(d->p, d->rooms);
+					// ft_putinttab(d->s, d->lmax);
+					return (get_ways(d, pos, turn, try));
 				}
 				else
 				{
 					// ft_printf(BLU "LOOP hack room=%d pos=%d turn=%d try=%d\n" RES, room, pos, turn, try);
-					// ft_putinttab(data->s, data->lmax);
-					data->p[room][pos] *= -1;
+					// ft_putinttab(d->s, d->lmax);
+					d->p[room][pos] *= -1;
 				}
 			}
 		}
-		reset_matrix(data, room, turn, try);
+		reset_matrix(d, room, turn, try);
 	}
 	return (0);
 }
 
-void	set(t_data *data)
+void	set(t_data *d)
 {
 	t_pos pos;
 
 	pos.x = -1;
-	while (++pos.x < data->lmax + data->rooms)
+	while (++pos.x < d->lmax + d->rooms)
 	{
 		pos.y = -1;
-		while (++pos.y < data->lmax)
-			data->s[pos.x][pos.y] = -1;
+		while (++pos.y < d->lmax)
+			d->s[pos.x][pos.y] = -1;
 	}
 }
 
-void	pathfinding(t_data *data)
+void	pathfinding(t_data *d)
 {
 	int try;
 	int i;
 
-	data->lmax = data->lmax * 2 + 1;
-	data->len = data->lmax;
-	if (!(data->s = ft_inttab(data->lmax, data->lmax + data->rooms)) || !(data->mark = (int *)ft_memalloc(sizeof(int) * (unsigned long)(data->rooms + 1))))
-		ft_error(data, "Error malloc");
-	set(data);
+	d->lmax = d->lmax * 2 + 1;
+	d->len = d->lmax;
+	if (!(d->s = ft_inttab(d->lmax, d->lmax + d->rooms)) || !(d->mark = (int *)ft_memalloc(sizeof(int) * (unsigned long)(d->rooms + 1))))
+		ft_error(d, "Error malloc");
+	set(d);
 	try = -1;
-	while (++try < data->lmax + data->rooms)
+	while (++try < d->lmax + d->rooms)
 	{
 		i = -1;
-		while (++i < data->rooms)
+		while (++i < d->rooms)
 		{
-			data->mark[i] = 0;
-			data->p[i][data->start - 1] = 0;
+			d->mark[i] = 0;
+			d->p[i][d->start - 1] = 0;
 		}
-		data->s[try][0] = data->start - 1;
-		get_ways(data, data->start - 1, 1, try);
+		d->s[try][0] = d->start - 1;
+		get_ways(d, d->start - 1, 1, try);
 	}
-	get_best_way(data);
-	//shortening_best_way(data);
+	get_best_way(d);
+	//shortening_best_way(d);
 }
