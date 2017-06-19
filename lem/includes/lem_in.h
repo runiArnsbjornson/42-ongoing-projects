@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 12:20:36 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 12:11:28 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,23 @@ typedef struct	s_pos
 	int		y;
 }				t_pos;
 
-typedef struct	s_room
-{
-	char	*name;
-	long	type;
-	t_pos	coor;
-}				t_room;
-
 typedef struct	s_data
 {
 	t_list	*r;
-	t_list	*sol;
 	int		**p;
 	int		**s;
 	int		**t;
 	int		*best;
 	int		*mark;
+	int		*max;
 	int		graph;
 	int		start;
 	int		end;
 	int		ants;
 	int		rooms;
 	int		lmax;
+	int		len;
+	int		pad;
 	int		x;
 	int		y;
 }				t_data;
@@ -73,6 +68,22 @@ void			get_type(t_data *data, char *line, int fd);
 void			get_ants_nbr(t_data *data, int av);
 void			parser(t_data *data, char *av);
 /*
+** solver.c
+*/
+int				reset_matrix(t_data *d, int room, int turn, int try);
+int				reset_hacked(t_data *d, int room, int turn, int try);
+int				hacking_way(t_data *d, int room, int turn, int try);
+int				get_ways(t_data *d, int room, int turn, int try);
+void			pathfinding(t_data *d);
+/*
+** display.c
+*/
+void			display_solution(t_data *d);
+void			display_rooms(t_data *data, t_list *tmp, int i);
+void			display_data(t_data *data, t_list *tmp, int i);
+void			display_best(t_data *data);
+void			display(t_data *data, int type);
+/*
 ** utils.c
 */
 void			check_data(t_data *d);
@@ -81,11 +92,10 @@ void			check_rooms(t_data *data, char *r);
 int				check_opt(const char c);
 void			ft_error(t_data *data, char *str) __attribute__((noreturn));
 /*
-** display.c
+** utils2.c
 */
-void			display_rooms(t_data *data, t_list *tmp, int i);
-void			display_data(t_data *data, t_list *tmp, int i);
-void			display_best(t_data *data, t_list *tmp, int i);
-void			display(t_data *data, int type);
+char			*get_content(t_list *t, int index);
+void			get_best(t_data *d);
+void			ft_setinttab(int **tab, int col, int n);
 
 #endif

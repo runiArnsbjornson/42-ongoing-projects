@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 16:45:43 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 15:57:56 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 09:48:29 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,22 @@ void	display_solution(t_data *d)
 	if (d->max == NULL)
 		if (!(d->max = (int *)ft_memalloc(sizeof(int) * (unsigned int)d->ants + 1)))
 			ft_error(d, "Error malloc");
-	y = 0;
 	in = 1;
-	while (y != d->len)
+	while (d->max[d->ants] != d->len)
 	{
 		i = 0;
 		while(++i < in)
 		{
-			y = 0;
-			if (y != d->len)
+			if (d->max[i] != d->len)
 			{
-				ft_printf("L%d-%s ", i, get_content(d->r, d->best[y]));
-				y++;
+				ft_printf("L%d-%s ", i, get_content(d->r, d->best[d->max[i]]));
+				d->max[i]++;
 			}
 		}
 		ft_printf("\n");
 		if (in <= d->ants)
 			in++;
+		y = 0;
 	}
 	ft_printf("shortest way is %d long\n", d->len);
 }
@@ -90,7 +89,7 @@ void	reset_matrix(t_data *d, int room, int turn, int try)
 {
 	t_pos pos;
 
-	ft_printf(BOL GRN "enter RESET room=%d turn=%d try=%d\n" RES, room, turn, try);
+	ft_printf(GRN "enter RESET room=%d turn=%d try=%d\n" RES, room, turn, try);
 	ft_putinttab(d->p, d->rooms);
 	if (turn > 1)
 		d->p[d->s[try][turn - 2]][d->s[try][turn - 1]] = 0;
@@ -124,10 +123,8 @@ void	reset_hacked_matrix(t_data *d, int room, int turn, int try)
 	}
 }
 
-
 int		hacking_way(t_data *d, int room, int turn, int try)
 {
-
 	if (d->p[room][d->end - 1] > 0)
 	{
 		// ft_printf(BLU "END hack\n" RES);
@@ -141,12 +138,12 @@ int		hacking_way(t_data *d, int room, int turn, int try)
 int		get_ways(t_data *d, int room, int turn, int try)
 {
 	int pos;
-	// int i;
+	int i;
 
+	i = -1;
+	while (++i < d->rooms)
+		ft_printf("[%s%d%s]%c", d->mark[i] == 1 ? GRN : RED, d->mark[i], RES, i == d->rooms - 1 ? '\n': ' ');
 	d->mark[room] = 1;
-	// i = -1;
-	// while (++i < d->rooms)
-	// 	ft_printf("[%s%d%s]%c", d->mark[i] == 1 ? GRN : RED, d->mark[i], RES, i == d->rooms - 1 ? '\n': ' ');
 	if (hacking_way(d, room, turn, try) == 1)
 		reset_hacked_matrix(d, room, turn, try);
 	else

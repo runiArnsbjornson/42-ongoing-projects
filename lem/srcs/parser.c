@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 10:54:32 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 13:12:34 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 16:53:04 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	get_tube(t_data *d, char *line)
 void	get_room(t_data *d, char *line)
 {
 	char	*r;
+	char	*t;
 	t_list	*tmp;
 
 	r = ft_strccpy(line, 32);
@@ -43,12 +44,20 @@ void	get_room(t_data *d, char *line)
 		ft_error(d, "Error malloc");
 	ft_lstaddend(&d->r, tmp);
 	d->rooms++;
-	if (ft_strchr(line, ' ') == NULL || ft_strrchr(line, ' ') == NULL)
+	t = ft_strccpy(ft_strchr(line, ' ') + 1, ' ');
+	if (ft_strrchr(line, ' ') + 1 == NULL || t == NULL ||
+		ft_stris(t, ft_isdigit) == 0 ||
+		ft_stris(ft_strrchr(line, ' ') + 1, ft_isdigit) == 0)
+	{
+		ft_strdel(&t);
+		ft_strdel(&r);
 		ft_error(d, "Invalid room coor");
+	}
 	if (d->start == 0)
 		d->start = d->rooms;
 	if (d->end == 0)
 		d->end = d->rooms;
+	ft_strdel(&t);
 	ft_strdel(&r);
 }
 

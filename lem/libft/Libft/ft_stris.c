@@ -6,13 +6,13 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 12:35:08 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/05/19 13:41:34 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 15:36:42 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_stris(const char *s, int (*f)(char))
+int		ft_stris(const char *s, int (*f)(int))
 {
 	size_t i;
 

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 11:04:10 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 13:12:51 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 15:25:09 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,26 @@ void	check_data(t_data *d)
 
 void	check_tube(t_data *d, t_list *tmp, char *r1, char *r2)
 {
-	int		i;
-	int		check;
+	t_pos check;
 
-	i = 0;
-	check = 0;
+	check.x = 0;
+	check.y = 0;
 	while (tmp)
 	{
 		if (ft_strcmp(r1, tmp->content) == 0)
 		{
-			d->y = i;
-			check++;
+			d->y = check.x;
+			check.y++;
 		}
 		if (ft_strcmp(r2, tmp->content) == 0)
 		{
-			d->x = i;
-			check++;
+			d->x = check.x;
+			check.y++;
 		}
 		tmp = tmp->next;
-		i++;
+		check.x++;
 	}
-	if (check != 2 || d->x == d->y)
+	if (check.y != 2 || d->x == d->y)
 		ft_error(d, "Error with tube");
 }
 
@@ -50,12 +49,11 @@ void	check_rooms(t_data *d, char *r1)
 {
 	t_list *tmp;
 
-	if (*r1 == 'L' || ft_bool_strchr(r1, '-'))
+	if (*r1 == 'L' || *r1 == '#' || ft_bool_strchr(r1, '-'))
 		ft_error(d, "Invalid room name");
 	tmp = d->r;
 	while (tmp)
 	{
-		ft_printf("%s - %s\n", r1, tmp->content);
 		if (ft_strcmp(r1, tmp->content) == 0)
 			ft_error(d, "Duplicate room name");
 		tmp = tmp->next;

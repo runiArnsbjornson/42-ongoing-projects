@@ -6,17 +6,17 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 12:25:22 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 13:35:18 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 10:32:10 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_fix(char *buffer, char *stock, char **line)
+static int		ft_fix(char *buff, char *stock, char **line)
 {
-	if ((buffer = ft_strchr(stock, '\0')) != NULL)
+	if ((buff = ft_strchr(stock, '\0')) != NULL)
 	{
-		*buffer = '\0';
+		*buff = '\0';
 		*line = ft_strdup(stock);
 		*stock = '\0';
 		return (1);
@@ -26,24 +26,24 @@ static int		ft_fix(char *buffer, char *stock, char **line)
 
 static char		*get_buff(const int fd, char *stock, long *ret)
 {
-	char		*temp;
-	char		buffer[BUFF_SIZE + 1];
+	char		*tmp;
+	char		buff[BUFF_SIZE + 1];
 
-	*ret = read(fd, buffer, BUFF_SIZE);
-	buffer[*ret] = '\0';
-	temp = stock;
-	stock = ft_strjoin(stock, buffer);
-	ft_strdel(&temp);
+	*ret = read(fd, buff, BUFF_SIZE);
+	buff[*ret] = '\0';
+	tmp = stock;
+	stock = ft_strjoin(stock, buff);
+	ft_strdel(&tmp);
 	return (stock);
 }
 
 int				gnl(const int fd, char **line)
 {
-	char		*buffer;
+	char		*buff;
 	long		ret;
 	static char	*stock;
 
-	buffer = NULL;
+	buff = NULL;
 	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	ret = 1;
@@ -55,13 +55,13 @@ int				gnl(const int fd, char **line)
 			ft_strclr(stock);
 			return (-1);
 		}
-		if ((buffer = ft_strchr(stock, '\n')) != NULL)
+		if ((buff = ft_strchr(stock, '\n')) != NULL)
 		{
-			*buffer = '\0';
+			*buff = '\0';
 			*line = ft_strdup(stock);
-			ft_memmove(stock, buffer + 1, ft_strlen(buffer + 1) + 1);
+			ft_memmove(stock, buff + 1, ft_strlen(buff + 1) + 1);
 			return (1);
 		}
 	}
-	return ((*stock == '\0') ? 0 : ft_fix(buffer, stock, line));
+	return ((*stock == '\0') ? 0 : ft_fix(buff, stock, line));
 }

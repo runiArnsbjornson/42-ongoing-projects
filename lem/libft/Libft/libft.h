@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 18:32:18 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/14 15:06:39 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 15:36:43 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ char			*ft_strccpy(const char *src, int c);
 void			ft_strdel(char **as);
 char			*ft_strdup(const char *src);
 int				ft_strequ(char const *s1, char const *s2);
-int				ft_stris(const char *s, int (*f)(char));
+int				ft_stris(const char *s, int (*f)(int));
 void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 char			*ft_strjoin(char const *s1, char const *s2);

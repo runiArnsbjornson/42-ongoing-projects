@@ -6,11 +6,40 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:04:23 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 13:38:22 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 17:25:14 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lem_in.h>
+
+void	display_solution(t_data *d)
+{
+	int in;
+	int x;
+
+	if (d->best == NULL || d->best[0] == d->best[1])
+		ft_error(d, "No solution");
+	if (d->max == NULL)
+		if (!(d->max = ft_memalloc(sizeof(int) * (unsigned long)(d->ants + 1))))
+			ft_error(d, "Error malloc");
+	in = 1;
+	while (d->max[d->ants] != d->len)
+	{
+		x = 0;
+		while (++x < in)
+		{
+			if (d->max[x] != d->len)
+			{
+				d->max[x] += 1;
+				ft_printf("L%d-%s ", x, get_content(d->r, d->best[d->max[x]]));
+			}
+		}
+		ft_printf("\n");
+		if (in <= d->ants)
+			in++;
+	}
+	ft_printf("\nThis way has %d tube%s", d->len, d->len == 1 ? "\n" : "s\n");
+}
 
 void	display_rooms(t_data *d, t_list *tmp, int i)
 {
@@ -38,7 +67,7 @@ void	display_data(t_data *d, t_list *tmp, int i)
 		tmp = tmp->next;
 		i++;
 	}
-	ft_printf("%d ant%s in the anthill\n", d->ants, d->ants == 1 ? " is" : "s are");
+	ft_printf("%d ant%swill go inside\n", d->ants, d->ants == 1 ? " " : "s ");
 	ft_printf("starting room is : %s\n", tmp->content);
 	tmp = d->r;
 	i = -1;
@@ -47,21 +76,25 @@ void	display_data(t_data *d, t_list *tmp, int i)
 	ft_printf("exit is in room : %s\n", tmp->content);
 }
 
-void	display_best(t_data *d, t_list *tmp, int i)
+void	display_best(t_data *d)
 {
-	int j;
+	int i;
 
 	if (d->best == NULL || (d->best[0] == d->best[1]))
-		ft_error(d, "No solution found");
+	{
+		ft_put_error("No solution");
+		return ;
+	}
+	i = -1;
 	while (++i < d->len + 1)
 	{
-		i == 0 ? ft_printf(BOL CYA "Best solution :\n" RES) : 0;
-		i == 0 ? ft_printf("shortest way is %d long\n", d->len + 1): 0;
-		j = d->best[i];
-		while (tmp && j--)
-			tmp = tmp->next;
-		ft_printf("%s%s", tmp->content, i == d->len ? "\n" : " -> ");
-		tmp = d->r;
+		if (i == 0)
+		{
+			ft_printf(CYA "Best solution :\n" RES);
+			ft_printf("shortest way is %d rooms long\n", d->len + 1);
+		}
+		ft_printf("%s%s", get_content(d->r, d->best[i]),
+		i == d->len ? "\n" : " -> ");
 	}
 }
 
@@ -85,5 +118,5 @@ void	display(t_data *d, int type)
 		ft_putinttab(d->s, d->lmax);
 	}
 	if (!!(type & (BEST << 0)) || (!!(type & (ALL << 0))))
-		display_best(d, tmp, -1);
+		display_best(d);
 }

@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/06/16 11:53:30 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/06/19 10:34:43 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = lem-in
 
 SRC_DIR = srcs/
 
-FILE = main.c parser.c utils.c
+FILE = main.c parser.c solver.c display.c utils.c utils2.c
 
 SRC = $(addprefix $(SRC_DIR), $(FILE)) 
 
@@ -45,7 +45,7 @@ clean:
 	@echo "\033[31mClean\033[01m Done\033[00m"
 
 fclean: clean
-	@rm -f libft/libftprintf.a libft/libft/libft.a players/$(NAME) $(NAME) players/$(NAME_G) $(NAME_G)
+	@rm -f libft/libftprintf.a libft/libft/libft.a $(NAME)
 	@echo "\033[31mFclean\033[01m Done\033[00m"
 
 mclean: all clean

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 10:45:24 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 13:05:15 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:42:55 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	ft_free(t_data *d)
 		ft_lstfree(&d->r);
 	if (d->p != NULL)
 		ft_inttabdel(d->p, d->rooms);
+	if (d->s != NULL)
+		ft_inttabdel(d->s, d->lmax + d->rooms);
 	if (d->t != NULL)
 		ft_inttabdel(d->t, d->rooms);
 	if (d->mark != NULL)
 		free(d->mark);
-	if (d->s != NULL)
-		ft_inttabdel(d->s, d->lmax + d->rooms);
+	if (d->max != NULL)
+		free(d->max);
 	d = NULL;
 }
 
@@ -54,18 +56,20 @@ void	graph_opt(char *av, t_data *d)
 void	init_data(t_data *d)
 {
 	d->r = NULL;
-	d->sol = NULL;
 	d->p = NULL;
 	d->s = NULL;
 	d->t = NULL;
 	d->best = NULL;
 	d->mark = NULL;
+	d->max = NULL;
 	d->graph = 0;
 	d->start = -1;
 	d->end = -1;
 	d->ants = 0;
 	d->rooms = 0;
 	d->lmax = 0;
+	d->len = 0;
+	d->pad = 0;
 	d->x = 0;
 	d->y = 0;
 }
@@ -98,5 +102,10 @@ int		main(int ac, char **av)
 	}
 	parser(&d, av[ac - 1]);
 	check_data(&d);
+	pathfinding(&d);
+	if (d.graph)
+		display(&d, d.graph);
+	display_solution(&d);
 	ft_free(&d);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:47:40 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/16 15:54:45 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:11:45 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	display_best(t_data *d, t_list *tmp, int i)
 		ft_error(d, "No solution found");
 	while (++i < d->len + 1)
 	{
-		i == 0 ? ft_printf(BOL CYA "Best solution :\n" RES) : 0;
-		i == 0 ? ft_printf("shortest way is %d long\n", d->len + 1): 0;
+		i == 0 ? ft_printf(BOL "Best solution :\n" RES) : 0;
+		i == 0 ? ft_printf("shortest way is %d long\n", d->len + 1) : 0;
 		ft_printf("%s%s", get_content(d->r, d->best[i]), i == d->len ? "\n" : " -> ");
 		tmp = d->r;
 	}
@@ -231,13 +231,12 @@ void	get_type(t_data *d, char *line, int fd)
 	}
 	else if (ft_strcmp(line, "##end") == 0 || ft_strcmp(line, "##start") == 0)
 		ft_error(d, "Redefinition of start/end");
-
 }
 
 void	parser(t_data *d, char *av)
 {
-	char *line;
-	int fd;
+	char	*line;
+	int		fd;
 
 	if ((fd = open(av, O_RDONLY)) < 0)
 		ft_error(d, "Read failed");
@@ -348,7 +347,7 @@ int		main(int ac, char **av)
 {
 	t_data	d;
 	int		graph;
-	int i;
+	int		i;
 
 	i = 0;
 	graph = 0;
@@ -365,7 +364,7 @@ int		main(int ac, char **av)
 	pathfinding(&d);
 	if (graph)
 		display(&d, graph);
-	display_solution(&d);
+	// display_solution(&d);
 	ft_free(&d);
 	return (0);
 }
