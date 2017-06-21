@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 10:45:24 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/19 11:42:55 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/21 14:00:20 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		main(int ac, char **av)
 	parser(&d, av[ac - 1]);
 	check_data(&d);
 	pathfinding(&d);
+	shortening_best(&d);
 	if (d.graph)
 		display(&d, d.graph);
 	display_solution(&d);

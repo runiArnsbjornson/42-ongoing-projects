@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/19 12:11:28 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/21 12:42:40 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void			ft_error(t_data *data, char *str) __attribute__((noreturn));
 /*
 ** utils2.c
 */
+void			shortening_best(t_data *d);
 char			*get_content(t_list *t, int index);
 void			get_best(t_data *d);
 void			ft_setinttab(int **tab, int col, int n);

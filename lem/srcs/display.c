@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:04:23 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/19 17:25:14 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/21 12:38:13 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	display_solution(t_data *d)
 		if (in <= d->ants)
 			in++;
 	}
-	ft_printf("\nThis way has %d tube%s", d->len, d->len == 1 ? "\n" : "s\n");
 }
 
 void	display_rooms(t_data *d, t_list *tmp, int i)
@@ -89,13 +88,11 @@ void	display_best(t_data *d)
 	while (++i < d->len + 1)
 	{
 		if (i == 0)
-		{
 			ft_printf(CYA "Best solution :\n" RES);
-			ft_printf("shortest way is %d rooms long\n", d->len + 1);
-		}
 		ft_printf("%s%s", get_content(d->r, d->best[i]),
 		i == d->len ? "\n" : " -> ");
 	}
+	ft_printf("\nThis way has %d tube%s", d->len, d->len == 1 ? "\n" : "s\n");
 }
 
 void	display(t_data *d, int type)

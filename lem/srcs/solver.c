@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:14:34 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/19 15:38:38 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/21 14:04:40 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		reset_hacked(t_data *d, int room, int turn, int try)
 		pos.x = -1;
 		while (++pos.x < d->rooms)
 		{
-			if (d->p[pos.x][d->s[try][turn - 1]] > 0)
+			if (d->p[d->s[try][turn - 1]][pos.x] > 0)
 				pos.y++;
 		}
 		if (pos.y > 1)
