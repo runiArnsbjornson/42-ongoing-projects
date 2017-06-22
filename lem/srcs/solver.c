@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:14:34 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/22 10:46:58 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/22 11:35:07 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int		reset_matrix(t_data *d, int room, int turn, int try)
 {
 	t_pos pos;
 
-	// ft_printf(GRN "enter RESET room=%d turn=%d try=%d\n" RES, room, turn, try);
-	// ft_putinttab(d->p, d->rooms);
 	if (turn > 1)
 		d->p[d->s[try][turn - 2]][d->s[try][turn - 1]] = 0;
 	pos.x = -1;
@@ -28,29 +26,7 @@ int		reset_matrix(t_data *d, int room, int turn, int try)
 			d->p[pos.x][pos.y] = (int)ft_abs(d->p[pos.x][pos.y]);
 	}
 	room = 0;
-	// ft_putinttab(d->p, d->rooms);
 	return (0);
-}
-
-int		reset_hacked(t_data *d, int room, int turn, int try)
-{
-	t_pos pos;
-
-	if (turn > 1)
-	{
-		pos.y = 0;
-		pos.x = -1;
-		while (++pos.x < d->rooms)
-		{
-			if (d->p[d->s[try][turn - 1]][pos.x] > 0)
-				pos.y++;
-		}
-		if (pos.y > 1)
-			reset_matrix(d, room, turn, try);
-		else
-			reset_hacked(d, room, turn - 1, try);
-	}
-	return (1);
 }
 
 int		hacking_way(t_data *d, int room, int turn, int try)
@@ -70,7 +46,7 @@ int		get_ways(t_data *d, int room, int turn, int try)
 
 	d->mark[room] = 1;
 	if (hacking_way(d, room, turn, try))
-		return (reset_hacked(d, room, turn, try));
+		return (reset_matrix(d, room, turn, try));
 	else
 	{
 		pos = -1;

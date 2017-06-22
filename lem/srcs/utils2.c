@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:50:24 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/22 10:27:31 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/22 11:35:52 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,6 @@ void	shortening_best(t_data *d)
 	}
 }
 
-char	*get_content(t_list *t, int index)
-{
-	if (index > ft_lstlen(&t) || t == NULL)
-		return (NULL);
-	while (t && index--)
-		t = t->next;
-	return (t->content);
-}
-
 void	get_best(t_data *d)
 {
 	t_pos pos;
@@ -69,6 +60,15 @@ void	get_best(t_data *d)
 			}
 		}
 	}
+}
+
+char	*get_content(t_list *t, int index)
+{
+	if (index > ft_lstlen(&t) || t == NULL)
+		return (NULL);
+	while (t && index--)
+		t = t->next;
+	return (t->content);
 }
 
 void	ft_setinttab(int **tab, int col, int n)

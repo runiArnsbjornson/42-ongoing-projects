@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/21 12:42:40 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/22 11:35:03 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void			parser(t_data *data, char *av);
 ** solver.c
 */
 int				reset_matrix(t_data *d, int room, int turn, int try);
-int				reset_hacked(t_data *d, int room, int turn, int try);
 int				hacking_way(t_data *d, int room, int turn, int try);
 int				get_ways(t_data *d, int room, int turn, int try);
 void			pathfinding(t_data *d);

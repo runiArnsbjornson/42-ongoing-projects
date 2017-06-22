@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:04:23 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/21 12:38:13 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/22 11:23:37 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	display_solution(t_data *d)
 	if (d->max == NULL)
 		if (!(d->max = ft_memalloc(sizeof(int) * (unsigned long)(d->ants + 1))))
 			ft_error(d, "Error malloc");
+	x = 0;
 	in = 1;
 	while (d->max[d->ants] != d->len)
 	{
@@ -81,7 +82,7 @@ void	display_best(t_data *d)
 
 	if (d->best == NULL || (d->best[0] == d->best[1]))
 	{
-		ft_put_error("No solution");
+		ft_put_error("No solution found");
 		return ;
 	}
 	i = -1;
