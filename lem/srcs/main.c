@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 10:45:24 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/21 14:00:20 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/22 10:27:53 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free(t_data *d)
 	if (d->p != NULL)
 		ft_inttabdel(d->p, d->rooms);
 	if (d->s != NULL)
-		ft_inttabdel(d->s, d->lmax + d->rooms);
+		ft_inttabdel(d->s, d->lmax);
 	if (d->t != NULL)
 		ft_inttabdel(d->t, d->rooms);
 	if (d->mark != NULL)

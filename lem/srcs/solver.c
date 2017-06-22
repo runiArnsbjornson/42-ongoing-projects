@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:14:34 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/21 14:04:40 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/22 10:46:58 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ void	pathfinding(t_data *d)
 
 	d->lmax = d->lmax * 2 + 1;
 	d->len = d->lmax;
-	if (!(d->s = ft_inttab(d->lmax, d->lmax + d->rooms)) ||
+	if (!(d->s = ft_inttab(d->lmax, d->lmax)) ||
 		!(d->mark = ft_memalloc(sizeof(int) * (unsigned long)(d->rooms + 1))))
 		ft_error(d, "Error malloc");
 	ft_setinttab(d->s, d->lmax, -1);
 	try.x = -1;
-	while (++try.x < d->lmax + d->rooms)
+	while (++try.x < d->lmax)
 	{
 		try.y = -1;
 		while (++try.y < d->rooms)
@@ -113,6 +113,8 @@ void	pathfinding(t_data *d)
 		}
 		d->s[try.x][0] = d->start - 1;
 		get_ways(d, d->start - 1, 1, try.x);
+		if (d->s[try.x][1] == -1)
+			break ;
 	}
 	get_best(d);
 }
