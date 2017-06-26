@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 10:45:24 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/22 10:27:53 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/23 13:22:36 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	bad_arg(void)
 	ft_putendl_fd("-s\tDisplay the matrix of solutions", 2);
 	ft_putendl_fd("-b\tDisplay the best solution", 2);
 	ft_putendl_fd("-a\tAll of the options above", 2);
-	exit(0);
+	exit(EXIT_FAILURE);
 }
 
 int		main(int ac, char **av)

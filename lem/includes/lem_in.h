@@ -6,7 +6,7 @@
 /*   By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:59 by jdebladi          #+#    #+#             */
-/*   Updated: 2017/06/22 11:35:03 by jdebladi         ###   ########.fr       */
+/*   Updated: 2017/06/23 09:37:15 by jdebladi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,17 @@ void			display_data(t_data *data, t_list *tmp, int i);
 void			display_best(t_data *data);
 void			display(t_data *data, int type);
 /*
-** utils.c
+** check.c
 */
 void			check_data(t_data *d);
 void			check_tube(t_data *data, t_list *tmp, char *r1, char *r2);
+void			check_coor(t_data *d, char *line);
 void			check_rooms(t_data *data, char *r);
 int				check_opt(const char c);
-void			ft_error(t_data *data, char *str) __attribute__((noreturn));
 /*
-** utils2.c
+** utils.c
 */
+void			ft_error(t_data *data, char *str) __attribute__((noreturn));
 void			shortening_best(t_data *d);
 char			*get_content(t_list *t, int index);
 void			get_best(t_data *d);

@@ -6,7 +6,7 @@
 #    By: jdebladi <jdebladi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/26 15:29:45 by jdebladi          #+#    #+#              #
-#    Updated: 2017/06/19 10:34:43 by jdebladi         ###   ########.fr        #
+#    Updated: 2017/06/23 09:37:28 by jdebladi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = lem-in
 
 SRC_DIR = srcs/
 
-FILE = main.c parser.c solver.c display.c utils.c utils2.c
+FILE = main.c parser.c solver.c display.c utils.c check.c
 
 SRC = $(addprefix $(SRC_DIR), $(FILE)) 
 
