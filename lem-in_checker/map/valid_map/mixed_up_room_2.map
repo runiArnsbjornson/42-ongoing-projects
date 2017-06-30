@@ -1,0 +1,12 @@
+3
+##start
+a1 2 3
+a2 5 0
+a4 1 2
+##end
+a3 5 4
+a1-a2
+a1-a3
+#ceci est un commentaire
+a2-a4
+a3-a4

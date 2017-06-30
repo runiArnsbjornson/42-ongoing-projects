@@ -1,0 +1,22 @@
+3
+##start
+a 2 3
+b 5 0
+c 1 2
+d 5 4
+e 6 4
+f 7 4
+g 7 4
+h 7 4
+##end
+i 8 4
+a-b
+a-d
+b-c
+c-d
+d-a
+d-e
+e-f
+f-g
+g-h
+h-i

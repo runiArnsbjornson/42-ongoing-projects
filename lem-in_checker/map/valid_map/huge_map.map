@@ -1,0 +1,62 @@
+256
+##start
+a 78 98
+b 74 54
+c 14 23
+d 47 89
+e 78 74
+f 57 9
+g 411 0
+h 0 0
+i 47 89
+j 99 99
+k 78 87
+l 10 10
+m 05 05
+n 04 04
+#too long
+o 03 03
+p 02 02
+q 00 00
+r 01 01
+s 11 11
+#very long
+t 12 12
+u 13 13
+v 14 14
+w 15 15
+x 16 16
+y 17 17
+##end
+z 9 9
+a-b
+b-c
+c-z
+d-z
+z-y
+y-v
+w-v
+e-w
+f-v
+g-f
+g-u
+u-v
+t-u
+x-t
+x-s
+x-u
+x-a
+s-t
+t-h
+s-i
+j-r
+r-s
+s-a
+q-p
+l-m
+n-o
+q-r
+m-q
+l-n
+o-r
+k-j
